@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -11,7 +13,7 @@ module.exports = {
         'primary-color':'#0066FF',
       },
       fontFamily: {
-        'work-sans': ['Work Sans', 'sans-serif']
+        sans: ['var(--font-work)', ...fontFamily.sans],
       },
     },
   },
