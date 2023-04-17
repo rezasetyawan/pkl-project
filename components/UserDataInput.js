@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { db } from "../firebase-config";
+import { db } from "../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 export default function UserDataInputForm() {
@@ -59,12 +59,13 @@ export default function UserDataInputForm() {
   };
 
   return (
-    <form
+    <div className="w-full h-[80vh] mx-auto flex items-center justify-center min-[499px]:max-w-[75%] md:max-w-md md:h-[100vh] md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0">
+     <form
       id="UserDataInputForm"
       onSubmit={handleSubmit}
-      className="w-[70%] mx-auto min-[499px]:max-w-md my-14 p-9 md:shadow-xl md:rounded-sm md:my-20"
+      className="w-[75%]"
     >
-      <div className="my-4">
+      <div className="my-5">
         <label
           // for="name"
           className="block text-sm text-slate-800 font-bold"
@@ -85,7 +86,7 @@ export default function UserDataInputForm() {
         />
       </div>
 
-      <div className="my-4">
+      <div className="my-5">
         <label
           // for="major"
           className="block text-sm text-slate-800 font-bold"
@@ -103,7 +104,7 @@ export default function UserDataInputForm() {
         />
       </div>
 
-      <div className="my-4">
+      <div className="my-5">
         <label
           // for="nis"
           className="block text-sm text-slate-800 font-bold"
@@ -121,7 +122,7 @@ export default function UserDataInputForm() {
         />
       </div>
 
-      <div className="my-4">
+      <div className="my-5">
         <label
           // for="pklPlace"
           className="block text-sm text-slate-800 font-bold"
@@ -139,7 +140,7 @@ export default function UserDataInputForm() {
         />
       </div>
 
-      <div className="my-4">
+      <div className="my-5">
         <label
           // for="pklPlace"
           className="block text-sm text-slate-800 font-bold"
@@ -157,7 +158,7 @@ export default function UserDataInputForm() {
         />
       </div>
 
-      <div className="flex max-w-full gap-2 box-border my-4">
+      <div className="flex max-w-full gap-2 box-border my-5">
         <div className="w-[50%]">
           <label
             // for="pklStartDate"
@@ -200,5 +201,6 @@ export default function UserDataInputForm() {
         Submit
       </button>
     </form>
+  </div>
   );
 }
