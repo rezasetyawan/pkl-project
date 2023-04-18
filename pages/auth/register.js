@@ -1,7 +1,6 @@
 import Head from "next/head";
 import SignUpForm from "@/components/SignUp";
-import Link
- from "next/link";
+
 export default function SignUpPage() {
   return (
     <>
@@ -12,7 +11,6 @@ export default function SignUpPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SignUpForm></SignUpForm>
-      <Link href={'/'}>home</Link>
     </>
   );
 }

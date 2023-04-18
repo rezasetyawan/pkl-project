@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/student/Navbar";
 import Layout from "@/components/Layout";
 import { useState } from "react";
 import { signOutUser } from "@/auth/firebase-auth";

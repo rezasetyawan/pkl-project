@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/student/Navbar';
 import Layout from '@/components/Layout';
 import { useState } from "react";
 import {auth} from '@/lib/firebase'
@@ -18,15 +18,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
       {onAuthStateChanged(auth, (user) => {
           if(!user) {
             router.push('auth/login')
           }
-          router.push('/student')
         })}
-       
-      </Layout>
     </>
   )
 }

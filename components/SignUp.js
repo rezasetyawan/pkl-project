@@ -30,7 +30,7 @@ export default function SignupForm() {
     event.preventDefault();
     signUpStudent(email,nis,password, userData).then((user) => {
       resetForm();
-        router.push('/student')
+        router.push('/auth/registration/data-form')
         console.log(user)
         console.log(user.displayName + " signed up");
     }) .catch((error) => {
@@ -134,7 +134,7 @@ export default function SignupForm() {
           </button>
           <p className="text-slate-600 text-xs text-center mt-2">
             Don&sbquo;t have account? Click{" "}
-            <Link href={"/auth/register"} className="text-sky-500">Sign In</Link>
+            <Link href={"/auth/login"} className="text-sky-500">Sign In</Link>
           </p>
         </div>
       </form>

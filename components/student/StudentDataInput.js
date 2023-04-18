@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { db } from "../lib/firebase";
+import { db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-export default function UserDataInputForm() {
+export default function StudentDataInputForm() {
   const [name, setName] = useState("");
   const [major, setMajor] = useState("");
   const [nis, setNis] = useState();
