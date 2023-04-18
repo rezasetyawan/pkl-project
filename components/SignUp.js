@@ -132,7 +132,7 @@ export default function SignupForm() {
           >
             Sign Up
           </button>
-          <p className="text-slate-600 text-xs text-center mt-2">
+          <p className="text-slate-600 text-sm text-center mt-2">
             Don&sbquo;t have account? Click{" "}
             <Link href={"/auth/login"} className="text-sky-500">Sign In</Link>
           </p>

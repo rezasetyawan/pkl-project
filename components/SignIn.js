@@ -110,7 +110,7 @@ export default function SigninForm() {
           >
             Sign In
           </button>
-          <p className="text-slate-600 text-xs text-center mt-2">
+          <p className="text-slate-600 text-sm text-center mt-2">
             Don&sbquo;t have account? Click{" "}
             <Link href={"/auth/register"} className="text-sky-500">Sign Up</Link>
           </p>

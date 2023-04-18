@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 export default function StudentDataInputForm() {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ export default function StudentDataInputForm() {
   const [pklAddress, setPklAddress] = useState("");
   const [pklStartDate, setPklStartDate] = useState();
   const [pklEndDate, setPklEndDate] = useState();
+  const router = useRouter()
 
   const getSignUpData = (
     name,
@@ -53,19 +55,22 @@ export default function StudentDataInputForm() {
       pklEndDate
     );
 
-    await setDoc(doc(db, "users", nis), userData).then(() => {
+    await setDoc(doc(db, "students", nis), userData).then(() => {
       resetForm();
-    });
+      router.push('/student')
+    }).catch((error) => {
+      console.log(error)
+    })
   };
 
   return (
-    <div className="w-full h-[80vh] mx-auto flex items-center justify-center min-[499px]:max-w-[75%] md:max-w-md md:h-[100vh] md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0">
+    <div className="w-full mx-auto h-[80vh] flex items-center justify-center min-[499px]:max-w-[75%] md:max-w-md md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0 md:h-[100vh]">
      <form
       id="UserDataInputForm"
       onSubmit={handleSubmit}
       className="w-[75%]"
     >
-      <div className="my-5">
+      <div className="mt-0 mb-5">
         <label
           // for="name"
           className="block text-sm text-slate-800 font-bold"
