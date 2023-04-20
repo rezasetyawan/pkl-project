@@ -14,7 +14,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-work)', ...fontFamily.sans],
-      },
+      }
     },
   },
   plugins: [],

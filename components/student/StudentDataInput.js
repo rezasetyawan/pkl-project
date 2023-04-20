@@ -2,16 +2,25 @@ import { useState } from "react";
 import { db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { uploadingCertificate, getCertificateUrl } from "@/lib/fileUpload";
+import NextButtonIcon from "../../public/icon/next-button-icon.svg";
 
 export default function StudentDataInputForm() {
   const [name, setName] = useState("");
   const [major, setMajor] = useState("");
-  const [nis, setNis] = useState();
+  const [nis, setNis] = useState(null);
   const [pklPlace, setPklPlace] = useState("");
   const [pklAddress, setPklAddress] = useState("");
-  const [pklStartDate, setPklStartDate] = useState();
-  const [pklEndDate, setPklEndDate] = useState();
-  const router = useRouter()
+  const [pklStartDate, setPklStartDate] = useState(null);
+  const [pklEndDate, setPklEndDate] = useState(null);
+  const [certificate, setCertificate] = useState(null);
+  const [certificateUrl, setCertificateUrl] = useState("");
+  const [error, setError] = useState("hayo lo");
+  const router = useRouter();
+
+  const handleFileChange = (e) => {
+    setCertificate(e.target.files[0]);
+  };
 
   const getSignUpData = (
     name,
@@ -55,157 +64,167 @@ export default function StudentDataInputForm() {
       pklEndDate
     );
 
-    await setDoc(doc(db, "students", nis), userData).then(() => {
-      resetForm();
-      router.push('/student')
-    }).catch((error) => {
-      console.log(error)
+    await uploadingCertificate(nis, certificate)
+      .then(() => {
+        getCertificateUrl(nis, certificate, setCertificateUrl);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+
+    await setDoc(doc(db, "students", nis), {
+      ...userData,
+      certificateUrl: certificateUrl,
     })
+      .then(() => {
+        resetForm();
+        router.push("/student");
+      })
+      .catch((error) => {
+        setError(error);
+      });
   };
 
   return (
-    <div className="w-full mx-auto h-[80vh] flex items-center justify-center min-[499px]:max-w-[75%] md:max-w-md md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0 md:h-[100vh]">
-     <form
-      id="UserDataInputForm"
-      onSubmit={handleSubmit}
-      className="w-[75%]"
-    >
-      <div className="mt-0 mb-5">
-        <label
-          // for="name"
-          className="block text-sm text-slate-800 font-bold"
+    <>
+      <div className="w-full mt-5 mx-auto flex items-center justify-center min-[499px]:max-w-[75%] md:max-w-md md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0">
+        <form
+          id="UserDataInputForm"
+          onSubmit={handleSubmit}
+          className="w-[75%] md:my-5"
         >
-          Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-            console.log(event.target.value);
-          }}
-          className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
-          placeholder="Your name"
-          required
-        />
-      </div>
+          <div className="mt-0 mb-3">
+            <label
+              // for="name"
+              className="block text-sm text-slate-800 font-bold"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
+              className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
+              placeholder="Your name"
+              required
+            />
+          </div>
 
-      <div className="my-5">
-        <label
-          // for="major"
-          className="block text-sm text-slate-800 font-bold"
-        >
-          Class / Major
-        </label>
-        <input
-          type="text"
-          id="major"
-          value={major}
-          onChange={(event) => setMajor(event.target.value)}
-          className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
-          placeholder="Your class and major"
-          required
-        />
-      </div>
+          <div className="my-3">
+            <label className="block text-sm text-slate-800 font-bold">
+              Class / Major
+            </label>
+            <input
+              type="text"
+              id="major"
+              value={major}
+              onChange={(event) => setMajor(event.target.value)}
+              className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
+              placeholder="Your class and major"
+              required
+            />
+          </div>
 
-      <div className="my-5">
-        <label
-          // for="nis"
-          className="block text-sm text-slate-800 font-bold"
-        >
-          NIS
-        </label>
-        <input
-          type="number"
-          id="nis"
-          value={nis}
-          onChange={(event) => setNis(event.target.value)}
-          className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
-          placeholder="Your NIS"
-          required
-        />
-      </div>
+          <div className="my-3">
+            <label className="block text-sm text-slate-800 font-bold">
+              NIS
+            </label>
+            <input
+              type="number"
+              id="nis"
+              value={nis}
+              onChange={(event) => setNis(event.target.value)}
+              className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
+              placeholder="Your NIS"
+              required
+            />
+          </div>
 
-      <div className="my-5">
-        <label
-          // for="pklPlace"
-          className="block text-sm text-slate-800 font-bold"
-        >
-          PKL Place
-        </label>
-        <input
-          type="text"
-          id="pklPlace"
-          value={pklPlace}
-          onChange={(event) => setPklPlace(event.target.value)}
-          className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
-          placeholder="Your PKL Place"
-          required
-        />
-      </div>
+          <div className="my-3">
+            <label className="block text-sm text-slate-800 font-bold">
+              PKL Place
+            </label>
+            <input
+              type="text"
+              id="pklPlace"
+              value={pklPlace}
+              onChange={(event) => setPklPlace(event.target.value)}
+              className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
+              placeholder="Your PKL Place"
+              required
+            />
+          </div>
 
-      <div className="my-5">
-        <label
-          // for="pklPlace"
-          className="block text-sm text-slate-800 font-bold"
-        >
-          Address of PKL Place
-        </label>
-        <input
-          type="text"
-          id="pklAddress"
-          value={pklAddress}
-          onChange={(event) => setPklAddress(event.target.value)}
-          className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
-          placeholder="Your PKL Place Address"
-          required
-        />
-      </div>
+          <div className="my-3">
+            <label className="block text-sm text-slate-800 font-bold">
+              Address of PKL Place
+            </label>
+            <input
+              type="text"
+              id="pklAddress"
+              value={pklAddress}
+              onChange={(event) => setPklAddress(event.target.value)}
+              className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
+              placeholder="Your PKL Place Address"
+              required
+            />
+          </div>
 
-      <div className="flex max-w-full gap-2 box-border my-5">
-        <div className="w-[50%]">
-          <label
-            // for="pklStartDate"
-            className="block text-sm text-slate-800 font-bold"
+          <div className="flex max-w-full gap-2 box-border my-3">
+            <div className="w-[50%]">
+              <label className="block text-sm text-slate-800 font-bold">
+                Start Date
+              </label>
+              <input
+                type="date"
+                id="pklStartDate"
+                value={pklStartDate}
+                onChange={(event) => setPklStartDate(event.target.value)}
+                className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm"
+                required
+              />
+            </div>
+
+            <div className="w-[50%]">
+              <label className="block text-sm text-slate-800 font-bold">
+                End Date
+              </label>
+              <input
+                type="date"
+                id="pklEndDate"
+                value={pklEndDate}
+                onChange={(event) => setPklEndDate(event.target.value)}
+                className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="my-3">
+            <label className="block text-sm text-slate-800 font-bold">
+              Certificate
+            </label>
+            <input
+              type="file"
+              onChange={handleFileChange}
+              className="block w-full before:mr-4 before:px-4 before:pt-4 before:pb-3 before:cursor-pointer before:rounded-xl before:content-[url('../public/icon/add-icon.svg')] before:bg-black/40 file:hidden pb-3 py-4 pr-3 my-3 font-semibold"
+            />
+            <p className="mt-1 text-sm text-slate-500" id="file_input_help">
+              PNG, JPG
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            className="bg-primary-color mt-10 rounded-md text-center  py-4 px-5 float-right mr-0"
           >
-            Start Date
-          </label>
-          <input
-            type="date"
-            id="pklStartDate"
-            value={pklStartDate}
-            onChange={(event) => setPklStartDate(event.target.value)}
-            className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm"
-            required
-          />
-        </div>
-
-        <div className="w-[50%]">
-          <label
-            // for="pklEndDate"
-            className="block text-sm text-slate-800 font-bold"
-          >
-            End Date
-          </label>
-          <input
-            type="date"
-            id="pklEndDate"
-            value={pklEndDate}
-            onChange={(event) => setPklEndDate(event.target.value)}
-            className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm"
-            required
-          />
-        </div>
+            <NextButtonIcon />
+          </button>
+        </form>
       </div>
-
-      <button
-        type="submit"
-        className="px-4 py-3 mt-8 w-full font-bold text-white bg-blue-500 rounded-md hover:bg-blue-600"
-      >
-        Submit
-      </button>
-    </form>
-  </div>
+    </>
   );
 }

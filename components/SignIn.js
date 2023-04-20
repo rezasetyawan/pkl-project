@@ -20,7 +20,7 @@ export default function SigninForm() {
     signInUser(email, password)
       .then((user) => {
         resetForm();
-        router.push('/student')
+        router.push("/student");
         console.log(user.displayName + " signed in");
       })
       .catch((error) => {
@@ -37,16 +37,14 @@ export default function SigninForm() {
           <p className="font-[400] text-sm text-black/70">
             Welcome back! Please enter your detail :D
           </p>
-          {error ? <p className="text-red-600 text-sm font-semibold py-2">{error}</p> : <p className="invisible">Halo banh :D</p>}
+          {error ? (
+            <p className="text-red-600 text-sm font-semibold py-2">{error}</p>
+          ) : (
+            <p className="invisible">Halo banh :D</p>
+          )}
         </div>
 
         <div className="my-1">
-          {/* <label
-            // for="email"
-            lassName="block text-sm text-slate-800 font-bold"
-          >
-            Email
-          </label> */}
           <input
             type="email"
             id="email"
@@ -59,12 +57,6 @@ export default function SigninForm() {
         </div>
 
         <div className="my-6 relative">
-          {/* <label
-            // for="password"
-            className="block text-sm text-slate-800 font-bold"
-          >
-            Password
-          </label> */}
           <input
             type={`${showPassword ? "text" : "password"}`}
             id="password"
@@ -112,7 +104,9 @@ export default function SigninForm() {
           </button>
           <p className="text-slate-600 text-sm text-center mt-2">
             Don&sbquo;t have account? Click{" "}
-            <Link href={"/auth/register"} className="text-sky-500">Sign Up</Link>
+            <Link href={"/auth/register"} className="text-sky-500">
+              Sign Up
+            </Link>
           </p>
         </div>
       </form>
