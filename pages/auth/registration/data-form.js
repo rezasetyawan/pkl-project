@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { redirectCurrentUserToLoginPage } from "@/utils/redirectUser";
 
-export default function SignInPage() {
+export default function StudentDataInput() {
   const user = auth.currentUser;
   const router = useRouter();
   const [nextPage, setNextPage] = useState(false);

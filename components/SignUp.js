@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { signUpStudent } from "@/auth/firebase-auth";
+import { signInUser, signUpStudent } from "@/auth/firebase-auth";
 import { useRouter } from "next/router";
 import { auth } from "@/lib/firebase";
 import Link from "next/link";
+import { updateProfile } from "firebase/auth";
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
@@ -25,14 +26,14 @@ export default function SignupForm() {
     setPassword("");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     const userData = getSignUpData(email, nis);
     event.preventDefault();
-    signUpStudent(email,nis,password, userData).then((user) => {
+    await signUpStudent(email,nis,password, userData).then((user) => {
       resetForm();
-        router.push('/auth/registration/data-form')
-        console.log(user)
-        console.log(user.displayName + " signed up");
+      router.push('/auth/registration/data-form')
+      console.log(user)
+      console.log(user.displayName + " signed up");
     }) .catch((error) => {
       setError(error.message);
       console.error(error.message);
@@ -133,7 +134,7 @@ export default function SignupForm() {
             Sign Up
           </button>
           <p className="text-slate-600 text-sm text-center mt-2">
-            Don&sbquo;t have account? Click{" "}
+            Don&rsquo;t have account? Click{" "}
             <Link href={"/auth/login"} className="text-sky-500">Sign In</Link>
           </p>
         </div>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { signInUser } from "@/auth/firebase-auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { gettingUserRole } from "@/utils/redirectUser";
+import { auth } from "@/lib/firebase";
 
 export default function SigninForm() {
   const [email, setEmail] = useState("");
@@ -15,12 +17,14 @@ export default function SigninForm() {
     setPassword("");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    signInUser(email, password)
+    await signInUser(email, password)
       .then((user) => {
         resetForm();
-        router.push("/student");
+        // gettingUserRole(auth.currentUser.displayName)
+        
+        router.push("/student/");
         console.log(user.displayName + " signed in");
       })
       .catch((error) => {
@@ -76,7 +80,7 @@ export default function SigninForm() {
             {showPassword ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 640 512"
+                viewBox="0 0 576 512"
                 fill="#94b8a3"
                 className="w-4"
               >
@@ -103,7 +107,7 @@ export default function SigninForm() {
             Sign In
           </button>
           <p className="text-slate-600 text-sm text-center mt-2">
-            Don&sbquo;t have account? Click{" "}
+            Don&rsquo;t have account? Click{" "}
             <Link href={"/auth/register"} className="text-sky-500">
               Sign Up
             </Link>

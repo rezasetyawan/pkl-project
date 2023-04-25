@@ -6,9 +6,9 @@ export default function Navbar({ navBar, setNavbar }) {
       <header className="grid grid-cols-3 gap-2.5 items-center sticky top-0  shadow z-[99] bg-[#ffffff] px-5 py-2 md:px-10 md:py-3">
         <div>
           <Link href="/">
-            <h2 className="font-work-sans text-primary-color font-bold tracking-tighter text-lg md:text-2xl">
+            <h1 className="font-work-sans text-primary-color font-bold tracking-tighter text-lg md:text-2xl">
               PROJECT PKL
-            </h2>
+            </h1>
           </Link>
         </div>
         <nav className=" px-1.5 py-3 min-[499px]:w-full min-[499px]:justify-around min-[499px]:col-span-2">
@@ -50,13 +50,13 @@ export default function Navbar({ navBar, setNavbar }) {
         </nav>
         <div className="grid justify-items-end content-end min-[499px]:hidden">
           <button
-            className="p-2 text-primary-color rounded-md outline-none focus:border-gray-400"
+            className={`${!navBar ? "p-2 text-primary-color rounded-md outline-none focus:border-gray-400" : "p-2 text-primary-color rounded-md outline-none focus:border-gray-400 bg-primary-color"}`}
             onClick={() => setNavbar(!navBar)}
           >
             {navBar ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 text-primary-color"
+                className="w-6 h-6 text-white"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >

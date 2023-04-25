@@ -1,14 +1,39 @@
 import Head from "next/head";
-import { useAuth } from "@/utils/redirectUser";
+import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
+import { auth } from "@/lib/firebase";
+import { gettingUserRole } from "@/utils/redirectUser";
 
 export default function Home() {
-  const user = useAuth();
   const router = useRouter();
+  // const user = auth.currentUser;
+  // console.log(user);
 
-  if (typeof window !== "undefined") {
-    !user && router.push("/auth/login");
-  }
+  // if (typeof window !== "undefined") {
+  //   if (!user) {
+  //     router.push("auth/login");
+  //   } else {
+  //     router.push("/student/");
+  //   }
+  // }
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      router.push("auth/login");
+    }
+    router.push("/student/");
+  });
+
+  //  try {
+  //   gettingUserRole(auth.currentUser.displayName).then((userRole) => {
+  //     if (userRole === "student") {
+  //       console.log(auth.currentUser.displayName + "logged in");
+  //       router.push("/student/");
+  //     }
+  //   });
+  //  } catch (error) {
+  //   console.log(error)
+  //  }
 
   return (
     <>

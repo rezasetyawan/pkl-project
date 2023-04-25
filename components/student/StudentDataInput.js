@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { db } from "../../lib/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { uploadingCertificate, getCertificateUrl } from "@/lib/fileUpload";
 import NextButtonIcon from "../../public/icon/next-button-icon.svg";
@@ -14,13 +14,21 @@ export default function StudentDataInputForm() {
   const [pklStartDate, setPklStartDate] = useState(null);
   const [pklEndDate, setPklEndDate] = useState(null);
   const [certificate, setCertificate] = useState(null);
-  const [certificateUrl, setCertificateUrl] = useState("");
-  const [error, setError] = useState("hayo lo");
+  const [error, setError] = useState(null);
   const router = useRouter();
 
-  const handleFileChange = (e) => {
-    setCertificate(e.target.files[0]);
+  const handleFileChange = (event) => {
+    if (event.target.files[0]) {
+      if (event.target.files[0].type === "application/pdf") {
+        setError(null)
+        setCertificate(event.target.files[0]);
+        return
+      }
+      setError("File must be pdf")
+    }
   };
+
+  
 
   const getSignUpData = (
     name,
@@ -64,21 +72,20 @@ export default function StudentDataInputForm() {
       pklEndDate
     );
 
-    await uploadingCertificate(nis, certificate)
-      .then(() => {
-        getCertificateUrl(nis, certificate, setCertificateUrl);
-      })
+    await setDoc(doc(db, "students", nis), userData)
+      .then()
       .catch((error) => {
         setError(error);
       });
 
-    await setDoc(doc(db, "students", nis), {
-      ...userData,
-      certificateUrl: certificateUrl,
-    })
-      .then(() => {
-        resetForm();
-        router.push("/student");
+    uploadingCertificate(nis, certificate)
+      .then(async () => {
+        const certificateUrl = await getCertificateUrl(nis);
+        await updateDoc(doc(db, "students", nis), {
+          certificateUrl: certificateUrl,
+        });
+        resetForm()
+        router.push("/student/");
       })
       .catch((error) => {
         setError(error);
@@ -209,17 +216,21 @@ export default function StudentDataInputForm() {
             </label>
             <input
               type="file"
+              accept=".pdf"
               onChange={handleFileChange}
               className="block w-full before:mr-4 before:px-4 before:pt-4 before:pb-3 before:cursor-pointer before:rounded-xl before:content-[url('../public/icon/add-icon.svg')] before:bg-black/40 file:hidden pb-3 py-4 pr-3 my-3 font-semibold"
             />
-            <p className="mt-1 text-sm text-slate-500" id="file_input_help">
-              PNG, JPG
+            <p className="mt-1 text-slate-500 text-sm" id="file_input_help">
+              Only PDF
             </p>
           </div>
 
+          {error && <strong className="font-bold text-red-600">{error}</strong>}
+
           <button
             type="submit"
-            className="bg-primary-color mt-10 rounded-md text-center  py-4 px-5 float-right mr-0"
+            disabled={error ? true : false}
+          className={`${error ? "cursor-not-allowed bg-black/30 mt-10 rounded-md text-center  py-4 px-5 float-right mr-0" : "bg-primary-color mt-10 rounded-md text-center  py-4 px-5 float-right mr-0"}`}
           >
             <NextButtonIcon />
           </button>
