@@ -37,7 +37,7 @@ export default function Student() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Navbar navBar={navBar} setNavbar={setNavbar}></Navbar>
-        <CompanyPage></CompanyPage>
+        <CompanyPage onClick={()=> setNavbar(false)}></CompanyPage>
         <button onClick={signOutButtonHandler}>Sign Out</button>
       </>
     )
