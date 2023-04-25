@@ -23,18 +23,7 @@ export default function Home() {
     }
     router.push("/student/");
   });
-
-  //  try {
-  //   gettingUserRole(auth.currentUser.displayName).then((userRole) => {
-  //     if (userRole === "student") {
-  //       console.log(auth.currentUser.displayName + "logged in");
-  //       router.push("/student/");
-  //     }
-  //   });
-  //  } catch (error) {
-  //   console.log(error)
-  //  }
-
+  
   return (
     <>
       <Head>
