@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const { fontFamily } = require('tailwindcss/defaultTheme')
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: [
@@ -10,13 +10,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-color':'#0066FF',
+        "primary-color": "#0066FF",
       },
       fontFamily: {
-        sans: ['var(--font-work)', ...fontFamily.sans],
-      }
+        sans: ["var(--font-work)", ...fontFamily.sans],
+      },
     },
   },
   plugins: [],
-}
-
+};

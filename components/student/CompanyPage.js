@@ -1,5 +1,7 @@
 import { Suspense, useState } from "react";
 import CompanyList from "./CompanyList";
+import Loading from "../Loading";
+
 export default function CompanyPage() {
   const [query, setQuery] = useState("");
   return (
@@ -35,7 +37,7 @@ export default function CompanyPage() {
         </button>
       </div>
       <div className="px-6">
-        <Suspense fallback={<h3>Loading....</h3>}>
+        <Suspense fallback={<Loading></Loading>}>
           <CompanyList query={query} setQuery={setQuery}></CompanyList>
         </Suspense>
       </div>
