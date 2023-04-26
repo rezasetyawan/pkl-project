@@ -23,8 +23,7 @@ export default function SigninForm() {
       .then((user) => {
         resetForm();
         // gettingUserRole(auth.currentUser.displayName)
-        
-        router.push("/student/");
+        router.push("/")
         console.log(user.displayName + " signed in");
       })
       .catch((error) => {
@@ -104,7 +103,7 @@ export default function SigninForm() {
             type="submit"
             className="px-4 py-3 mt-5 text-sm w-full font-bold text-white bg-blue-500 rounded-md hover:bg-blue-600"
           >
-            Sign In
+            Log In
           </button>
           <p className="text-slate-600 text-sm text-center mt-2">
             Don&rsquo;t have account? Click{" "}

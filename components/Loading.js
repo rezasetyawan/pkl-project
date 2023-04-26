@@ -1,13 +1,13 @@
 export default function Loading() {
   return (
-    <div className="text-center relative min-h-[50vh]">
+    <div className="text-center">
       <div
         role="status"
-        className="absolute top-[50%] left-[50%] -translate-x-2/4 -translate-y-2/4"
+        className="absolute top-[50%] left-[50%] -translate-x-2/4 -translate-y-2/4 "
       >
         <svg
           aria-hidden="true"
-          className="w-8 h-8 mr-2 text-primary-color/40 animate-spin fill-primary-color"
+          className="w-10 h-10 text-primary-color/40 animate-spin fill-primary-color"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

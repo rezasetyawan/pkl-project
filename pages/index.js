@@ -1,29 +1,85 @@
 import Head from "next/head";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
-import { auth } from "@/lib/firebase";
-import { gettingUserRole } from "@/utils/redirectUser";
+import { auth, db } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import useSWR from "swr";
+import { useState, useEffect } from "react";
+import Loading from "@/components/Loading";
 
 export default function Home() {
+  const [docId, setDocId] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  // const user = auth.currentUser;
-  // console.log(user);
 
-  // if (typeof window !== "undefined") {
-  //   if (!user) {
-  //     router.push("auth/login");
-  //   } else {
-  //     router.push("/student/");
-  //   }
-  // }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        setIsAuthenticated(false);
+        router.push("/auth/login");
+      } else {
+        setIsAuthenticated(true);
+        if (user.displayName !== null) {
+          console.log("user display name " + user.displayName);
+          setDocId(user.displayName);
+        } else {
+          console.log("user display uid " + user.uid);
+          setDocId(user.uid);
+        }
+        setIsLoading(false);
+      }
+    });
 
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-      router.push("auth/login");
-    }
-    router.push("/student/");
+    return unsubscribe;
+  }, [router]);
+
+  const fetcher = async (docId) => {
+    const docSnapshot = await getDoc(doc(db, "users", docId));
+    const userData = docSnapshot.data();
+    console.log(userData);
+    return { ...userData };
+  };
+
+  const { data, error } = useSWR(isAuthenticated ? docId : null, fetcher, {
+    suspense: true,
+    shouldRetryOnError: (error) => {
+      if (isAuthenticated) {
+        return true;
+      }
+      return false;
+    },
   });
-  
+
+  console.log("data " + data);
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  if (typeof window !== "undefined") {
+    console.log(data);
+    switch (data.role) {
+      case "student":
+        router.push("/student/");
+        break;
+      case "public_relation":
+        router.push("/public-relation/");
+        break;
+      case "company":
+        router.push("/company/");
+        break;
+      default:
+        router.push("/");
+    }
+    console.log("empty data");
+    return null;
+  }
+
   return (
     <>
       <Head>

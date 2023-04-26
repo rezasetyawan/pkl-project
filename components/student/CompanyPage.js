@@ -36,7 +36,7 @@ export default function CompanyPage() {
           Filter
         </button>
       </div>
-      <div className="px-6">
+      <div className="px-6 relative min-h-[90vh] md:min-h-[50vh]">
         <Suspense fallback={<Loading></Loading>}>
           <CompanyList query={query} setQuery={setQuery}></CompanyList>
         </Suspense>

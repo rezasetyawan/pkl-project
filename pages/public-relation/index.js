@@ -10,7 +10,7 @@ export default function Student() {
   const router = useRouter();
   const [navBar, setNavbar] = useState(false);
 
-  redirectCurrentUserToLoginPage(user, router)
+  // redirectCurrentUserToLoginPage(user, router)
 
   const signOutButtonHandler = async () => {
     signOutUser()
@@ -23,7 +23,7 @@ export default function Student() {
       });
   };
   return (
-    user && (
+    // user && (
       <>
         <Head>
           <title>Public Relation</title>
@@ -34,6 +34,6 @@ export default function Student() {
         halo bang
         <button onClick={signOutButtonHandler}>Sign Out</button>
       </>
-    )
+    // )
   );
 }
