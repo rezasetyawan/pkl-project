@@ -1,35 +1,25 @@
-import { useMemo, useState } from "react";
-import { collection, doc, getDocs } from "firebase/firestore";
-import CompanyIcon from "../../public/icon/company-icon.svg";
-import { db } from "@/lib/firebase";
-import useSWR from "swr";
+import { useMemo } from "react";
+import { useCollectionDocuments } from "@/lib/firestore";
+import Loading from "../Loading";
+import Error from "../Error";
 
-export default function CompanyList({ query, setQuery }) {
-  //   const [company, setCompany] = useState([]);
+export default function CompanyList({ query, setQuery, filteredCompanies }) {
+  console.log('from company list ')
+  console.log(filteredCompanies)
+  
 
-  const fetcher = async (collectionPath) => {
-    const querySnapshot = await getDocs(collection(db, collectionPath));
-    const companyData = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return [...companyData];
-  };
-
-  const { data, error } = useSWR("companies", fetcher, {
-    suspense: true,
-  });
-
-  const filteredCompanies = useMemo(() => {
-    return data.filter((companyData) => {
-      return companyData.name.toLowerCase().includes(query.toLowerCase());
-    });
-  }, [data, query]);
+  // if (isLoading) return <Loading />;
+  // if (error) return <Error errorMessage={error} />;
+  // if (filteredCompanies.length < 1)
+    // return <Error errorMessage={"Company Not Found"} errorCode={"404"} />;
 
   return (
     <div className="grid grid-cols-1 gap-2 mt-7 md:gap-3 md:grid-cols-2 lg:grid-cols-3">
       {filteredCompanies.map((company) => (
-        <div className="p-3 flex gap-3 bg-white rounded-md shadow-md" key={company.id}>
+        <div
+          className="p-3 flex gap-3 bg-white rounded-md shadow-md"
+          key={company.id}
+        >
           <div className="flex items-center overflow-hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,15 +31,25 @@ export default function CompanyList({ query, setQuery }) {
             </svg>
           </div>
           <div>
-            <h3 className="font-extrabold border-b-2 border-slate-300">{company.name}</h3>
+            <h3 className="font-extrabold border-b-2 border-slate-300">
+              {company.name}
+            </h3>
             <div className="text-sm text-slate-700 mt-1">
-              <p className="font-bold">Kota:<span className="font-semibold">{company.city.toUpperCase()}</span></p>
-              <p className="font-bold">Jurusan: <span className="font-semibold">{company.major_target.toUpperCase()}</span></p>
-              <p className="font-bold">Jenis Usaha: <span className="font-semibold">{company.field}</span></p>
+              <p>
+                <span className="font-bold inline-block">Kota</span>
+                <span className="font-semibold">: {company.city}</span>
+              </p>
+              <pa>
+                <span className="font-bold inline-block">Jurusan </span>
+                <span className="font-semibold">
+                  : {company.major_target.toUpperCase()}
+                </span>
+              </pa>
+              <p>
+                <span className="font-bold inline-block">Jenis Usaha </span>
+                <span className="font-semibold">: {company.field}</span>
+              </p>
             </div>
-            {/* <p className="w-full text-ellipsis text-sm max-h-20 overflow-y-auto">
-              {company.address}
-            </p> */}
           </div>
         </div>
       ))}

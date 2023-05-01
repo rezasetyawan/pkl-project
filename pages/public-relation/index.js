@@ -1,16 +1,18 @@
 import Head from "next/head";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/router";
-import { useState} from "react";
+import { useEffect } from "react";
 import { redirectCurrentUserToLoginPage } from "@/utils/redirectUser";
 import { signOutUser } from "@/auth/firebase-auth";
 
 export default function Student() {
   const user = auth.currentUser;
+  console.log(user);
   const router = useRouter();
-  const [navBar, setNavbar] = useState(false);
 
-  // redirectCurrentUserToLoginPage(user, router)
+  useEffect(() => {
+    redirectCurrentUserToLoginPage(user, router);
+  }, [user, router]);
 
   const signOutButtonHandler = async () => {
     signOutUser()
@@ -23,7 +25,7 @@ export default function Student() {
       });
   };
   return (
-    // user && (
+    user && (
       <>
         <Head>
           <title>Public Relation</title>
@@ -34,6 +36,6 @@ export default function Student() {
         halo bang
         <button onClick={signOutButtonHandler}>Sign Out</button>
       </>
-    // )
+    )
   );
 }

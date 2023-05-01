@@ -12,9 +12,9 @@ export default function StudentDataInput() {
   const router = useRouter();
   const [nextPage, setNextPage] = useState(false);
 
-  redirectCurrentUserToLoginPage(user, router)
+  // redirectCurrentUserToLoginPage(user, router)
   return (
-    user && (
+    // user && (
       <>
         <Head>
           <title>Register</title>
@@ -45,6 +45,6 @@ export default function StudentDataInput() {
           </div>
         )}
       </>
-    )
+    // )
   );
 }

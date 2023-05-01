@@ -7,7 +7,7 @@ export default function Navbar({ navBar, setNavbar }) {
         <div>
           <Link href="/">
             <h1 className="font-work-sans text-primary-color font-bold tracking-tighter text-lg md:text-2xl">
-              PROJECT PKL
+              PKL PROJECT
             </h1>
           </Link>
         </div>
@@ -30,7 +30,7 @@ export default function Navbar({ navBar, setNavbar }) {
             </li>
             <li className="inline-block text-center text-primary-color font-bold">
               <Link
-                href="/account"
+                href="/student/account"
                 className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md"
                 onClick={() => setNavbar(!navBar)}
               >
@@ -50,7 +50,7 @@ export default function Navbar({ navBar, setNavbar }) {
         </nav>
         <div className="grid justify-items-end content-end min-[499px]:hidden">
           <button
-            className={`${!navBar ? "p-2 text-primary-color rounded-md outline-none focus:border-gray-400" : "p-2 text-primary-color rounded-md outline-none focus:border-gray-400 bg-primary-color"}`}
+            className={`p-2 text-primary-color rounded-md outline-none focus:border-gray-400 ${navBar && "bg-primary-color"}`}
             onClick={() => setNavbar(!navBar)}
           >
             {navBar ? (

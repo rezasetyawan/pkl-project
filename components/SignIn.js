@@ -2,8 +2,6 @@ import { useState } from "react";
 import { signInUser } from "@/auth/firebase-auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { gettingUserRole } from "@/utils/redirectUser";
-import { auth } from "@/lib/firebase";
 
 export default function SigninForm() {
   const [email, setEmail] = useState("");
@@ -22,7 +20,6 @@ export default function SigninForm() {
     await signInUser(email, password)
       .then((user) => {
         resetForm();
-        // gettingUserRole(auth.currentUser.displayName)
         router.push("/")
         console.log(user.displayName + " signed in");
       })

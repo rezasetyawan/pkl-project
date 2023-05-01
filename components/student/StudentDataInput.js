@@ -7,7 +7,7 @@ import NextButtonIcon from "../../public/icon/next-button-icon.svg";
 
 export default function StudentDataInputForm() {
   const [name, setName] = useState("");
-  const [major, setMajor] = useState("");
+  const [studentClass, setstudentClass] = useState("");
   const [nis, setNis] = useState(null);
   const [pklPlace, setPklPlace] = useState("");
   const [pklAddress, setPklAddress] = useState("");
@@ -32,7 +32,7 @@ export default function StudentDataInputForm() {
 
   const getSignUpData = (
     name,
-    major,
+    studentClassArrayData,
     nis,
     pklPlace,
     pklAddress,
@@ -41,7 +41,9 @@ export default function StudentDataInputForm() {
   ) => {
     return {
       name: name,
-      major: major,
+      class: studentClassArrayData[0],
+      major: studentClassArrayData[1],
+      classNumber: studentClassArrayData[2],
       nis: nis,
       pklPlace: pklPlace,
       pklAddress: pklAddress,
@@ -52,7 +54,7 @@ export default function StudentDataInputForm() {
 
   const resetForm = () => {
     setName("");
-    setMajor("");
+    setstudentClass("");
     setNis("");
     setPklPlace("");
     setPklAddress("");
@@ -62,9 +64,11 @@ export default function StudentDataInputForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const studentClassArrayData = studentClass.split(" ")
+    console.log(studentClassArrayData)
     const userData = getSignUpData(
       name,
-      major,
+      studentClassArrayData,
       nis,
       pklPlace,
       pklAddress,
@@ -122,15 +126,15 @@ export default function StudentDataInputForm() {
 
           <div className="my-3">
             <label className="block text-sm text-slate-800 font-bold">
-              Class / Major
+              Class
             </label>
             <input
               type="text"
-              id="major"
-              value={major}
-              onChange={(event) => setMajor(event.target.value)}
+              id="studentClass"
+              value={studentClass}
+              onChange={(event) => setstudentClass(event.target.value)}
               className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
-              placeholder="Your class and major"
+              placeholder="XI PPLG 3"
               required
             />
           </div>
@@ -145,7 +149,7 @@ export default function StudentDataInputForm() {
               value={nis}
               onChange={(event) => setNis(event.target.value)}
               className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
-              placeholder="Your NIS"
+              placeholder="10146"
               required
             />
           </div>

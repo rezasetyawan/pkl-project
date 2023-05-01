@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { signInUser, signUpStudent } from "@/auth/firebase-auth";
 import { useRouter } from "next/router";
-import { auth } from "@/lib/firebase";
 import Link from "next/link";
-import { updateProfile } from "firebase/auth";
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
@@ -64,12 +62,6 @@ export default function SignupForm() {
         </div>
 
         <div className="my-6">
-          {/* <label
-            // for="nis"
-            className="block text-sm text-slate-800 font-bold"
-          >
-            NIS
-          </label> */}
           <input
             type="number"
             id="nis"
@@ -82,12 +74,7 @@ export default function SignupForm() {
         </div>
 
         <div className="my-6 relative">
-          {/* <label
-            // for="password"
-            className="block text-sm text-slate-800 font-bold"
-          >
-            Password
-          </label> */}
+       
           <input
             type={`${showPassword ? "text" : "password"}`}
             id="password"

@@ -1,22 +1,74 @@
-import { Suspense, useState } from "react";
+import { useState, useMemo } from "react";
 import CompanyList from "./CompanyList";
-import Loading from "../Loading";
+import FilterSection from "../FilterSection";
+import { useCollectionDocuments } from "@/lib/firestore";
+import { useFilterTitlesAndCatagories } from "@/utils/useFilterTitlesAndCategories";
 
 export default function CompanyPage() {
+  const [showFilterSection, setShowFilterSection] = useState(false);
   const [query, setQuery] = useState("");
+  const [companyList, setCompanyList] = useState([]);
+  const [filteredCompanies, setFilteredCompanies] = useState([]);
+  const filtersKeyword = {
+    city: [],
+    majorTarget: [],
+  };
+
+  const { documentSnapshot, isLoading, error } =
+    useCollectionDocuments("companies");
+
+  useMemo(() => {
+    documentSnapshot && setCompanyList(documentSnapshot);
+  }, [documentSnapshot]);
+
+  useMemo(() => {
+    companyList && setFilteredCompanies(companyList);
+  }, [companyList]);
+
+  const searchedCompanies = useMemo(() => {
+    return filteredCompanies
+      ? filteredCompanies.filter((companyData) => {
+          return companyData.name.toLowerCase().includes(query.toLowerCase());
+        })
+      : [];
+  }, [filteredCompanies, query]);
+
+
+  const removeDuplicates = (arr) => {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+  };
+
+  const filterCategories = useMemo(
+    () => ({
+      city: removeDuplicates(
+        companyList.map((company) => {
+          return company.city;
+        })
+      ),
+      majorTarget: ["PPLG", "DKV", "TJKT", "LK", "CG"],
+    }),
+    [companyList]
+  );
+
+  const filterTitles = useMemo(
+    () => Object.getOwnPropertyNames(filterCategories),
+    [filterCategories]
+  );
+
   return (
-    <>
-      <h2 className="text-2xl font-[600] text-center mt-5 mb-6">
-        Dunia Industri
-      </h2>
-      <div className="box-border px-6 md:max-w-lg md:flex md:flex-row-reverse md:gap-1">
+    <article className="bg-gray-50 pt-5">
+      <h2 className="text-2xl font-[600] text-center mb-6">Dunia Industri</h2>
+      <div className="box-border px-6 md:max-w-[45%] md:flex md:flex-row-reverse md:gap-1">
         <input
           type="text"
           placeholder="Search company here"
           onChange={(event) => setQuery(event.target.value)}
           className="bg-[#E9E9E9] w-full h-8 px-2 py-4 rounded-md font-medium placeholder:text-black/40 placeholder:font-[600] focus:outline-none"
         ></input>
-        <button className="bg-[#E9E9E9] font-[600] text-black/60 py-1 px-2 rounded-md my-2 md:my-0 md:min-w-fit">
+        <button
+          className="bg-[#E9E9E9] font-[600] text-black/60 py-1 px-2 rounded-md my-2 md:my-0 md:min-w-fit"
+          onClick={() => setShowFilterSection(!showFilterSection)}
+        >
           <svg
             width="18"
             height="17"
@@ -36,11 +88,25 @@ export default function CompanyPage() {
           Filter
         </button>
       </div>
-      <div className="px-6">
-        <Suspense fallback={<Loading></Loading>}>
-          <CompanyList query={query} setQuery={setQuery}></CompanyList>
-        </Suspense>
+      <div className="px-6 min-h-screen relative">
+        <CompanyList
+          query={query}
+          setQuery={setQuery}
+          filteredCompanies={searchedCompanies}
+        ></CompanyList>
+        {showFilterSection && (
+          <FilterSection
+            filtersKeyword={filtersKeyword}
+            filterTitles={filterTitles}
+            filterCategories={filterCategories}
+            dataList={filteredCompanies}
+            setDataList={setFilteredCompanies}
+            dataSource={companyList}
+            showFilterSection={showFilterSection}
+            setShowFilterSection={setShowFilterSection}
+          ></FilterSection>
+        )}
       </div>
-    </>
+    </article>
   );
 }
