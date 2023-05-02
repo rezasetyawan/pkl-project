@@ -6,7 +6,7 @@ export default function FilteredSection({
   filterTitles,
   filterCategories,
   dataSource,
-  setShowFilterSection
+  setShowFilterSection,
 }) {
   const [filters, setFilters] = useState(filtersKeyword);
 
@@ -24,10 +24,10 @@ export default function FilteredSection({
 
   const filterButtonHandler = () => {
     if (filters.city.length == 0 && filters.majorTarget.length == 0) {
-      console.log('data source')
-      console.log(dataSource)
-      setDataList(dataSource)
-      return
+      console.log("data source");
+      console.log(dataSource);
+      setDataList(dataSource);
+      return;
     }
     const filteredList = dataList.filter((item) => {
       if (
@@ -42,57 +42,84 @@ export default function FilteredSection({
       ) {
         return false;
       }
-     return true;
+      return true;
     });
     setDataList(filteredList);
   };
 
   return (
-   
-      <div className="absolute top-[10%] left-[50%] w-[80%] -translate-x-2/4 -translate-y-2/4 bg-white p-10 max-h-[50vh] overflow-x-scroll  md:top-[20%] md:max-h-[60vh] shadow-xl">
-      <span>Filter</span>
-      {filterTitles.map((title) => (
-        <div key={title}>
-          <p>{title}</p>
-          {filterCategories[title].map((category) => (
-            <button
-              key={category}
-              className={`m-2 py-2 px-4 bg-slate-200 ${
-                filters[title].includes(category) ? "ring-1" : "ring-0"
-              } `}
-              onClick={() => {
-                handleFilterChange(title, category);
-              }}
-            >
-              {category}
-            </button>
-          ))}
+    <>
+      <div className="fixed top-0 left-0 right-0 z-[100] w-full overflow-hidden h-screen max-h-full p-5 bg-black/80 md:p-10">
+
+        <div className="relative w-full top-[10%] flex justify-center items-center">
+          <div className="relative bg-white rounded-lg shadow">
+            <div className="flex items-start justify-between p-2 border-b rounded-t md:p-4">
+              <span className=" text-lg font-semibold text-gray-900 block md:text-xl ">
+                Filter
+              </span>
+              <button
+                type="button"
+                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                onClick={() => setShowFilterSection(false)}
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http:www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div className="min-h-[340px] max-h-[340px] overflow-y-scroll overflow-x-hidden">
+              {filterTitles.map((title) => (
+                <div key={title} className="p-5">
+                  <p>{title}</p>
+                  {filterCategories[title].map((category) => (
+                    <button
+                      key={category}
+                      className={`m-2 py-2 px-4 bg-slate-200 ${
+                        filters[title].includes(category) ? "ring-1" : "ring-0"
+                      } `}
+                      onClick={() => {
+                        handleFilterChange(title, category);
+                      }}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div class="flex items-center p-2 space-x-2 border-t border-gray-200 rounded-b flex-row-reverse gap-2 md:p-4 ">
+              <button
+                type="button"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                onClick={() => {
+                  filterButtonHandler();
+                  console.log("filters");
+                  console.log(filters);
+                  setFilters(filters);
+                  setShowFilterSection(false);
+                }}
+              >
+                Filter
+              </button>
+              <button
+                type="button"
+                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 "
+              >
+                Reset Filter
+              </button>
+            </div>
+          </div>
         </div>
-      ))}
-      <button
-        className="m-2 py-2 px-4 bg-slate-200"
-        onClick={() => {
-          setFilters({
-            class: [],
-            major: [],
-            classNumber: [],
-          });
-        }}
-      >
-        reset filter
-      </button>
-      <button
-        className="m-2 py-2 px-4 bg-slate-200"
-        onClick={() => {
-          filterButtonHandler();
-          console.log('filters')
-          console.log(filters)
-          setFilters(filters)
-          setShowFilterSection(false)
-        }}
-      >
-        filter
-      </button>
-    </div>
+      </div>
+    </>
   );
 }

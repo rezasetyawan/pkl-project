@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AppLogo from "../../public/icon/app-logo.svg";
 
 export default function Navbar({ navBar, setNavbar }) {
   return (
@@ -6,8 +7,8 @@ export default function Navbar({ navBar, setNavbar }) {
       <header className="grid grid-cols-3 gap-2.5 items-center sticky top-0  shadow z-[99] bg-[#ffffff] px-5 py-2 md:px-10 md:py-3">
         <div>
           <Link href="/">
-            <h1 className="font-work-sans text-primary-color font-bold tracking-tighter text-lg md:text-2xl">
-              PKL PROJECT
+            <h1 className="font-work-sans  text-primary-color font-extrabold text-lg md:text-2xl drop-shadow-md shadow-blue-600/50">
+              Intern Wolu
             </h1>
           </Link>
         </div>
@@ -50,7 +51,9 @@ export default function Navbar({ navBar, setNavbar }) {
         </nav>
         <div className="grid justify-items-end content-end min-[499px]:hidden">
           <button
-            className={`p-2 text-primary-color rounded-md outline-none focus:border-gray-400 ${navBar && "bg-primary-color"}`}
+            className={`p-2 text-primary-color rounded-md outline-none focus:border-gray-400 ${
+              navBar && "bg-primary-color"
+            }`}
             onClick={() => setNavbar(!navBar)}
           >
             {navBar ? (

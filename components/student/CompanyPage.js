@@ -33,7 +33,6 @@ export default function CompanyPage() {
       : [];
   }, [filteredCompanies, query]);
 
-
   const removeDuplicates = (arr) => {
     return arr.filter((item, index) => arr.indexOf(item) === index);
   };
@@ -88,7 +87,7 @@ export default function CompanyPage() {
           Filter
         </button>
       </div>
-      <div className="px-6 min-h-screen relative">
+      <div className={`px-6 min-h-screen relative`}>
         <CompanyList
           query={query}
           setQuery={setQuery}
