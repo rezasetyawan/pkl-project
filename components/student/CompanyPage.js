@@ -87,7 +87,7 @@ export default function CompanyPage() {
           Filter
         </button>
       </div>
-      <div className={`px-6 min-h-[20vh] md:min-h-[40vh] relative`}>
+      <div className={`px-6 min-h-screen relative`}>
         <CompanyList
           isLoading={isLoading}
           error={error}

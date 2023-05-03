@@ -7,7 +7,7 @@ const work_sans = Work_Sans({
 
 export default function Layout({ children }) {
   return (
-    <main className={`${work_sans.variable} font-sans bg-slate-50 h-screen`}>
+    <main className={`${work_sans.variable} font-sans h-screen`}>
       {children}
     </main>
   );
