@@ -20,15 +20,13 @@ export default function StudentDataInputForm() {
   const handleFileChange = (event) => {
     if (event.target.files[0]) {
       if (event.target.files[0].type === "application/pdf") {
-        setError(null)
+        setError(null);
         setCertificate(event.target.files[0]);
-        return
+        return;
       }
-      setError("File must be pdf")
+      setError("File must be pdf");
     }
   };
-
-  
 
   const getSignUpData = (
     name,
@@ -64,8 +62,8 @@ export default function StudentDataInputForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const studentClassArrayData = studentClass.split(" ")
-    console.log(studentClassArrayData)
+    const studentClassArrayData = studentClass.split(" ");
+    console.log(studentClassArrayData);
     const userData = getSignUpData(
       name,
       studentClassArrayData,
@@ -77,7 +75,11 @@ export default function StudentDataInputForm() {
     );
 
     await setDoc(doc(db, "students", nis), userData)
-      .then()
+      .then(() => {
+        if (certificate === null) {
+          return router.push("/student/");
+        }
+      })
       .catch((error) => {
         setError(error);
       });
@@ -88,7 +90,7 @@ export default function StudentDataInputForm() {
         await updateDoc(doc(db, "students", nis), {
           certificateUrl: certificateUrl,
         });
-        resetForm()
+        resetForm();
         router.push("/student/");
       })
       .catch((error) => {
@@ -165,7 +167,6 @@ export default function StudentDataInputForm() {
               onChange={(event) => setPklPlace(event.target.value)}
               className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
               placeholder="Your PKL Place"
-              required
             />
           </div>
 
@@ -180,7 +181,6 @@ export default function StudentDataInputForm() {
               onChange={(event) => setPklAddress(event.target.value)}
               className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
               placeholder="Your PKL Place Address"
-              required
             />
           </div>
 
@@ -195,7 +195,6 @@ export default function StudentDataInputForm() {
                 value={pklStartDate}
                 onChange={(event) => setPklStartDate(event.target.value)}
                 className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm"
-                required
               />
             </div>
 
@@ -209,7 +208,6 @@ export default function StudentDataInputForm() {
                 value={pklEndDate}
                 onChange={(event) => setPklEndDate(event.target.value)}
                 className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm"
-                required
               />
             </div>
           </div>
@@ -234,7 +232,11 @@ export default function StudentDataInputForm() {
           <button
             type="submit"
             disabled={error ? true : false}
-          className={`${error ? "cursor-not-allowed bg-black/30 mt-10 rounded-md text-center  py-4 px-5 float-right mr-0" : "bg-primary-color mt-10 rounded-md text-center  py-4 px-5 float-right mr-0"}`}
+            className={`${
+              error
+                ? "cursor-not-allowed bg-black/30 mt-10 rounded-md text-center  py-4 px-5 float-right mr-0"
+                : "bg-primary-color mt-10 rounded-md text-center  py-4 px-5 float-right mr-0"
+            }`}
           >
             <NextButtonIcon />
           </button>
