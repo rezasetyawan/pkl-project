@@ -1,22 +1,20 @@
-import { useMemo } from "react";
-import { useCollectionDocuments } from "@/lib/firestore";
 import Loading from "../Loading";
 import Error from "../Error";
 
-export default function CompanyList({ query, setQuery, filteredCompanies }) {
+export default function CompanyList({ isLoading, error, filteredCompanies }) {
   console.log("from company list ");
   console.log(filteredCompanies);
 
-  // if (isLoading) return <Loading />;
-  // if (error) return <Error errorMessage={error} />;
-  // if (filteredCompanies.length < 1)
-  // return <Error errorMessage={"Company Not Found"} errorCode={"404"} />;
+  if (isLoading) return <Loading />;
+  if (error) return <Error errorMessage={error} />;
+  if (filteredCompanies.length < 1)
+  return <Error errorMessage={"Company Not Found"} errorCode={"404"} />;
 
   return (
     <div className="grid grid-cols-1 gap-2 mt-7 md:gap-3 md:grid-cols-2 lg:grid-cols-3">
       {filteredCompanies.map((company) => (
         <div
-          className="p-3 flex gap-3 bg-white rounded-md shadow-md"
+          className="p-3 flex gap-3 rounded-md shadow-md"
           key={company.id}
         >
           <div className="flex items-center overflow-hidden">
@@ -26,7 +24,7 @@ export default function CompanyList({ query, setQuery, filteredCompanies }) {
               viewBox="0 0 80 79"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="w-20 aspect-square"
+              className="w-20 aspect-square drop-shadow-md"
             >
               <path
                 d="M6.66663 69.125H73.3333"

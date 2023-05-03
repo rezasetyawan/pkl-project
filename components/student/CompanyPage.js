@@ -55,7 +55,7 @@ export default function CompanyPage() {
   );
 
   return (
-    <article className="bg-gray-50 pt-5">
+    <article className="bg-slate-50 pt-5">
       <h2 className="text-2xl font-[600] text-center mb-6">Dunia Industri</h2>
       <div className="box-border px-6 md:max-w-[45%] md:flex md:flex-row-reverse md:gap-1">
         <input
@@ -87,10 +87,10 @@ export default function CompanyPage() {
           Filter
         </button>
       </div>
-      <div className={`px-6 min-h-screen relative`}>
+      <div className={`px-6 min-h-[20vh] md:min-h-[40vh] relative`}>
         <CompanyList
-          query={query}
-          setQuery={setQuery}
+          isLoading={isLoading}
+          error={error}
           filteredCompanies={searchedCompanies}
         ></CompanyList>
         {showFilterSection && (

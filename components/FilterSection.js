@@ -49,7 +49,7 @@ export default function FilteredSection({
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-[100] w-full overflow-hidden h-screen max-h-full p-5 bg-black/80 md:p-10">
+      <div className="fixed top-0 left-0 right-0 z-[100] w-full overflow-hidden h-screen p-5 bg-black/80 md:p-10">
 
         <div className="relative w-full top-[10%] flex justify-center items-center">
           <div className="relative bg-white rounded-lg shadow">

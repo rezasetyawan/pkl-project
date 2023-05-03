@@ -51,7 +51,7 @@ export default function Student() {
         </Head>
         <Navbar navBar={navBar} setNavbar={setNavbar}></Navbar>
         <CompanyPage onClick={() => setNavbar(false)}></CompanyPage>
-        <button onClick={signOutButtonHandler}>Sign Out</button>
+        {/* <button onClick={signOutButtonHandler}>Sign Out</button> */}
       </>
     )
   );
