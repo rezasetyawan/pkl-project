@@ -1,56 +1,59 @@
 import Loading from "../Loading";
 import Error from "../Error";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function CompanyList({ isLoading, error, filteredCompanies }) {
-  console.log("from company list ");
-  console.log(filteredCompanies);
-
+  const router = useRouter()  
   if (isLoading) return <Loading />;
   if (error) return <Error errorMessage={error} />;
   if (filteredCompanies.length < 1)
-  return <Error errorMessage={"Company Not Found"} errorCode={"404"} />;
+    return <Error errorMessage={"Company Not Found"} errorCode={"404"} />;
+
+    
 
   return (
-    <div className="grid grid-cols-1 gap-2 mt-7 md:gap-3 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-2 mt-7 md:gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {filteredCompanies.map((company) => (
         <div
-          className="p-3 flex gap-3 rounded-md shadow-md"
+          className="p-3 flex gap-3 rounded-md shadow-md hover:cursor-pointer"
           key={company.id}
+          onClick={() => router.push(`/student/company/${company.id}`)}
         >
-          <div className="flex items-center overflow-hidden">
+          <div className="flex items-center overflow-hidden min-w-[25%] max-w-[25%]">
             <svg
               width="80"
               height="79"
               viewBox="0 0 80 79"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="w-20 aspect-square drop-shadow-md"
+              className="min-w-[80px] max-w-[80px] aspect-square drop-shadow-md"
             >
               <path
                 d="M6.66663 69.125H73.3333"
                 stroke="black"
-                stroke-width="4"
-                stroke-linecap="square"
-                stroke-linejoin="square"
+                strokeWidth="4"
+                strokeLinecap="square"
+                strokeLinejoin="square"
               />
               <path
                 d="M23.3334 42.7917H16.6667C14.8258 42.7917 13.3334 44.2654 13.3334 46.0833V65.8333C13.3334 67.6513 14.8258 69.125 16.6667 69.125H23.3334C25.1743 69.125 26.6667 67.6513 26.6667 65.8333V46.0833C26.6667 44.2654 25.1743 42.7917 23.3334 42.7917Z"
                 stroke="black"
-                stroke-width="4"
-                stroke-linejoin="square"
+                strokeWidth="4"
+                strokeLinejoin="square"
               />
               <path
                 d="M20 55.9583H21.6667"
                 stroke="black"
-                stroke-width="4"
-                stroke-linecap="square"
-                stroke-linejoin="square"
+                strokeWidth="4"
+                strokeLinecap="square"
+                strokeLinejoin="square"
               />
               <path
                 d="M63.3333 6.58334H30C28.159 6.58334 26.6666 8.05707 26.6666 9.875V65.8333C26.6666 67.6513 28.159 69.125 30 69.125H63.3333C65.1742 69.125 66.6666 67.6513 66.6666 65.8333V9.875C66.6666 8.05707 65.1742 6.58334 63.3333 6.58334Z"
                 stroke="black"
-                stroke-width="4"
-                stroke-linejoin="square"
+                strokeWidth="4"
+                strokeLinejoin="square"
               />
               <path
                 d="M43.3333 16.4583H36.6666V23.0417H43.3333V16.4583Z"
@@ -75,24 +78,26 @@ export default function CompanyList({ isLoading, error, filteredCompanies }) {
               />
             </svg>
           </div>
-          <div>
-            <h3 className="font-extrabold border-b-2 border-slate-300">
-              {company.name}
+          <div className="max-w-[70%]">
+            <h3 className="font-extrabold border-b-2 border-slate-300 text-left max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
+              <Link href={`/student/company/${company.id}`}>
+                {company.name || '-'}
+              </Link>
             </h3>
             <div className="text-sm text-slate-700 mt-1">
               <p>
                 <span className="font-bold inline-block">Kota</span>
                 <span className="font-semibold">: {company.city}</span>
               </p>
-              <pa>
+              <p>
                 <span className="font-bold inline-block">Jurusan </span>
                 <span className="font-semibold">
-                  : {company.major_target.toUpperCase()}
+                  : {company.major_target.toUpperCase() || '-'}
                 </span>
-              </pa>
+              </p>
               <p>
                 <span className="font-bold inline-block">Jenis Usaha </span>
-                <span className="font-semibold">: {company.field}</span>
+                <span className="font-semibold">: {company.field || '-'}</span>
               </p>
             </div>
           </div>

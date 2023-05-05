@@ -11,6 +11,8 @@ export default function FilteredSection({
   const [filters, setFilters] = useState(filtersKeyword);
 
   const handleFilterChange = (title, category) => {
+    console.log("prev filters");
+    console.log(filters);
     const newFilters = { ...filters };
     if (newFilters[title].includes(category)) {
       newFilters[title] = newFilters[title].filter(
@@ -20,6 +22,14 @@ export default function FilteredSection({
       newFilters[title].push(category);
     }
     setFilters(newFilters);
+    console.log("setting filters");
+    console.log(filters);
+  };
+
+  const resetFilterButtonHandler = () => {
+    setFilters({ ...filtersKeyword });
+    console.log("reset filters");
+    console.log(filters);
   };
 
   const filterButtonHandler = () => {
@@ -45,12 +55,13 @@ export default function FilteredSection({
       return true;
     });
     setDataList(filteredList);
+    console.log("filters");
+    console.log(filters);
   };
 
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-[100] w-full overflow-hidden h-screen p-5 bg-black/80 md:p-10">
-
         <div className="relative w-full top-[10%] flex justify-center items-center">
           <div className="relative bg-white rounded-lg shadow">
             <div className="flex items-start justify-between p-2 border-b rounded-t md:p-4">
@@ -77,8 +88,8 @@ export default function FilteredSection({
               </button>
             </div>
             <div className="min-h-[340px] max-h-[340px] overflow-y-scroll overflow-x-hidden">
-              {filterTitles.map((title) => (
-                <div key={title} className="p-5">
+              {filterTitles.map((title, index) => (
+                <div key={index} className="p-5">
                   <p>{title}</p>
                   {filterCategories[title].map((category) => (
                     <button
@@ -102,9 +113,6 @@ export default function FilteredSection({
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 onClick={() => {
                   filterButtonHandler();
-                  console.log("filters");
-                  console.log(filters);
-                  setFilters(filters);
                   setShowFilterSection(false);
                 }}
               >
@@ -113,6 +121,7 @@ export default function FilteredSection({
               <button
                 type="button"
                 class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 "
+                onClick={() => resetFilterButtonHandler()}
               >
                 Reset Filter
               </button>

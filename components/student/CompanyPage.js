@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import CompanyList from "./CompanyList";
 import FilterSection from "../FilterSection";
-import { useCollectionDocuments } from "@/lib/firestore";
+import { useDocumentCollections }  from "@/lib/firestore";
 import { useFilterTitlesAndCatagories } from "@/utils/useFilterTitlesAndCategories";
 
 export default function CompanyPage() {
@@ -15,7 +15,7 @@ export default function CompanyPage() {
   };
 
   const { documentSnapshot, isLoading, error } =
-    useCollectionDocuments("companies");
+    useDocumentCollections("companies");
 
   useMemo(() => {
     documentSnapshot && setCompanyList(documentSnapshot);

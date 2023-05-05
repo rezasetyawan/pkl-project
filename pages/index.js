@@ -21,10 +21,8 @@ export default function Home() {
       } else {
         setIsAuthenticated(true);
         if (user.displayName !== null) {
-          console.log("user display name " + user.displayName);
           setDocId(user.displayName);
         } else {
-          console.log("user display uid " + user.uid);
           setDocId(user.uid);
         }
         setIsLoading(false);
@@ -37,7 +35,6 @@ export default function Home() {
   const fetcher = async (docId) => {
     const docSnapshot = await getDoc(doc(db, "users", docId));
     const userData = docSnapshot.data();
-    console.log(userData);
     return { ...userData };
   };
 
@@ -51,7 +48,6 @@ export default function Home() {
     },
   });
 
-  console.log("data " + data);
 
   if (isLoading) {
     return <Loading></Loading>;
@@ -76,7 +72,6 @@ export default function Home() {
       default:
         router.push("/");
     }
-    console.log("empty data");
     return null;
   }
 

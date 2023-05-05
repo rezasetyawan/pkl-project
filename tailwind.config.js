@@ -14,6 +14,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-work)", ...fontFamily.sans],
+        poppins : ["var(--font-poppins)", ...fontFamily.sans]
       },
     },
   },

@@ -7,7 +7,6 @@ import { signOutUser } from "@/auth/firebase-auth";
 
 export default function Student() {
   const user = auth.currentUser;
-  console.log(user);
   const router = useRouter();
 
   useEffect(() => {
