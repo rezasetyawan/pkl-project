@@ -16,7 +16,7 @@ export default function Navbar({ navBar, setNavbar }) {
           <ul
             className={`${
               navBar
-                ? "absolute flex flex-col w-[50%] top-[58px] right-0 items-center list-none text-sm max-[499px]:bg-slate-50 rounded-sm py-8 shadow"
+                ? "absolute flex flex-col w-[50%] translate-y-8 right-0 items-center list-none text-sm max-[499px]:bg-slate-50 rounded-sm py-8 shadow transition-all"
                 : "hidden"
             } gap-8 min-[499px]:justify-end min-[499px]:static min-[499px]:w-full min-[499px]:flex-row min-[499px]:text-sm min-[499px]:flex min-[499px]:py-0 min-[499px]:shadow-none md:text-base`}
           >
@@ -31,11 +31,11 @@ export default function Navbar({ navBar, setNavbar }) {
             </li>
             <li className="inline-block text-center text-primary-color font-bold">
               <Link
-                href="/student/account"
+                href="/student/profile"
                 className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md"
                 onClick={() => setNavbar(!navBar)}
               >
-                Account
+                Profile
               </Link>
             </li>
             <li className="inline-block text-center text-primary-color font-bold">

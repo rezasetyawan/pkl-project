@@ -13,22 +13,7 @@ export default function Student() {
   const router = useRouter();
   const [navBar, setNavbar] = useState(false);
 
-  const student = {
-    certificateUrl: "",
-    kelas: "XI",
-    jurusan: "PPLG",
-    rombel: "3",
-    name: "Reza Setyawan",
-    nis: "10146",
-    pklAddress: "Jl.Satria",
-    pklEndDate: "2023-05-12",
-    pklPlace: "Tokopedia",
-    pklStartDate: "2023-04-29",
-  };
-
-  useEffect(() => {
-    redirectCurrentUserToLoginPage(user, router);
-  }, [user, router]);
+  redirectCurrentUserToLoginPage(user, router);
 
   const signOutButtonHandler = async () => {
     signOutUser()

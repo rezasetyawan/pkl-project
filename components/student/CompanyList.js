@@ -4,19 +4,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function CompanyList({ isLoading, error, filteredCompanies }) {
-  const router = useRouter()  
+  const router = useRouter();
   if (isLoading) return <Loading />;
   if (error) return <Error errorMessage={error} />;
   if (filteredCompanies.length < 1)
     return <Error errorMessage={"Company Not Found"} errorCode={"404"} />;
 
-    
-
   return (
     <div className="grid grid-cols-1 gap-2 mt-7 md:gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {filteredCompanies.map((company) => (
         <div
-          className="p-3 flex gap-3 rounded-md shadow-md hover:cursor-pointer"
+          className="bg-white p-3 flex gap-3 rounded-md shadow-md hover:cursor-pointer hover:ring-2 hover:ring-[#0066ff] hover:ring-offset-1 hover:ring-offset-slate-200 hover:scale-[1.02] hover:transition-transform"
           key={company.id}
           onClick={() => router.push(`/student/company/${company.id}`)}
         >
@@ -79,25 +77,40 @@ export default function CompanyList({ isLoading, error, filteredCompanies }) {
             </svg>
           </div>
           <div className="max-w-[70%]">
-            <h3 className="font-extrabold border-b-2 border-slate-300 text-left max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
+            <h3 className="font-semibold border-b-2 border-slate-300 text-left max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
               <Link href={`/student/company/${company.id}`}>
-                {company.name || '-'}
+                <span className="max-w-[50px]">{company.name || "-"}</span>
+                <sup
+                  className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff] ${
+                    !company.isMOU && "hidden"
+                  }`}
+                >
+                  MOU
+                </sup>
               </Link>
             </h3>
-            <div className="text-sm text-slate-700 mt-1">
-              <p>
-                <span className="font-bold inline-block">Kota</span>
-                <span className="font-semibold">: {company.city}</span>
+            <div className="flex my-1">
+              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[50px]">
+                City
               </p>
-              <p>
-                <span className="font-bold inline-block">Jurusan </span>
-                <span className="font-semibold">
-                  : {company.major_target.toUpperCase() || '-'}
-                </span>
+              <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase leading-5">
+                : {company.city || "-"}
               </p>
-              <p>
-                <span className="font-bold inline-block">Jenis Usaha </span>
-                <span className="font-semibold">: {company.field || '-'}</span>
+            </div>
+            <div className="flex my-1">
+              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[50px]">
+                Major
+              </p>
+              <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase leading-5">
+                : {company.major_target || "-"}
+              </p>
+            </div>
+            <div className="flex my-1">
+              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[50px]">
+                Field
+              </p>
+              <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] leading-5">
+                : {company.field || "-"}
               </p>
             </div>
           </div>

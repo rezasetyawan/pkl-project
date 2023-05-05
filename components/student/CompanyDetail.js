@@ -1,20 +1,20 @@
 import { useRouter } from "next/router";
-import BackButtonIcon from "../../public/icon/back-button-icon.svg";
 import Link from "next/link";
+import BackButtonIcon from "../../public/icon/back-button-icon.svg";
+
 export default function CompanyDetail({ companyDetailData }) {
   const router = useRouter();
-  const mou = true;
   return (
-    <article className="w-full text-center relative h-full">
-      <div className="absolute -top-2 left-3">
+    <article className="w-full text-center relative h-full bg-white pt-10">
+      <div className="absolute top-8 left-3">
         <button
           onClick={() => router.back()}
-          className="text-center py-4 px-5 "
+          className="text-center py-4 px-5 hover:scale-125 transition-transform"
         >
           <BackButtonIcon />
         </button>
       </div>
-      <div className="mx-auto mt-10">
+      <div>
         <h3 className="font-bold font-poppins tracking-wide text-xl">
           DETAIL PERUSAHAAN
         </h3>
@@ -23,7 +23,7 @@ export default function CompanyDetail({ companyDetailData }) {
             {companyDetailData.name || "-"}
             <sup
               className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff] ${
-                !mou && "hidden"
+                !companyDetailData.isMOU && "hidden"
               }`}
             >
               MOU
@@ -47,6 +47,14 @@ export default function CompanyDetail({ companyDetailData }) {
           </div>
           <div className="flex my-3">
             <h5 className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[140px]">
+              Field
+            </h5>
+            <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%]">
+              {companyDetailData.field || "-"}
+            </p>
+          </div>
+          <div className="flex my-3">
+            <h5 className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[140px]">
               Major target
             </h5>
             <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase">
@@ -65,9 +73,17 @@ export default function CompanyDetail({ companyDetailData }) {
             <h5 className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[140px]">
               Website
             </h5>
-            <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%]">
-              {companyDetailData.website || "-"}
-            </p>
+            {companyDetailData.website ? (
+              <Link
+                href={`https://${companyDetailData.website}`}
+                className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] text-blue-600 underline"
+                target="blank"
+              >
+                {companyDetailData.website}
+              </Link>
+            ) : (
+              <span className="text-black/60">-</span>
+            )}
           </div>
         </section>
       </div>
