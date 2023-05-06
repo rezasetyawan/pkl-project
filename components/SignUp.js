@@ -39,7 +39,7 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="w-full h-[80vh] mx-auto flex items-center justify-center bg-white min-[499px]:max-w-[75%] md:max-w-md md:h-[100vh] md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0">
+    <div className="w-full h-full mx-auto flex items-center justify-center bg-white min-[499px]:max-w-[75%] md:max-w-md md:h-[100vh] md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0">
       <form id="signUpForm" onSubmit={handleSubmit} className="w-[75%]">
         <div>
           <h2 className="font-[600] text-[25px]">Sign Up</h2>

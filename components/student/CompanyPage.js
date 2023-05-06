@@ -57,15 +57,16 @@ export default function CompanyPage() {
   return (
     <article className="bg-slate-50 pt-5">
       <h2 className="text-2xl font-[600] text-center mb-6 font-sans">Dunia Industri</h2>
-      <div className="box-border px-6 md:max-w-[45%] md:flex md:flex-row-reverse md:gap-1">
+      <div className="box-border px-6 md:max-w-[45%] md:flex md:flex-row-reverse md:gap-2">
         <input
           type="text"
+          tabIndex={'0'}
           placeholder="Search company here"
           onChange={(event) => setQuery(event.target.value)}
-          className="bg-[#E9E9E9] w-full h-8 px-2 py-4 rounded-md font-sans font-medium placeholder:text-black/40 placeholder:font-[600] focus:outline-none"
+          className="bg-[#E9E9E9] w-full h-8 px-2 py-4 rounded-md font-sans font-medium placeholder:text-black/40 placeholder:font-[600] focus:outline-none focus:ring-2"
         ></input>
         <button
-          className="bg-[#E9E9E9] font-[600] text-black/60 py-1 px-2 font-sans rounded-md my-2 md:my-0 md:min-w-fit"
+          className="bg-[#E9E9E9] font-[600] text-black/60 py-1 px-2 font-sans rounded-md my-2 md:my-0 md:min-w-fit hover:ring-2 hover:ring-offset-1"
           onClick={() => setShowFilterSection(!showFilterSection)}
         >
           <svg

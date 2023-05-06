@@ -25,7 +25,7 @@ export default function CompanyList({ isLoading, error, filteredCompanies }) {
               viewBox="0 0 80 79"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="min-w-[80px] max-w-[80px] aspect-square drop-shadow-md"
+              className="min-[425px]:min-w-[80px] min-[425px]:max-w-[80px] aspect-square drop-shadow-md"
             >
               <path
                 d="M6.66663 69.125H73.3333"
@@ -77,20 +77,18 @@ export default function CompanyList({ isLoading, error, filteredCompanies }) {
             </svg>
           </div>
           <div className="max-w-[70%]">
-            <h3 className="font-semibold border-b-2 border-slate-300 text-left max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
+            <h3 className="font-semibold border-b-2 border-slate-300 text-left max-w-full whitespace-nowrap overflow-hidden text-ellipsis text-sm sm:text-base">
               <Link href={`/student/company/${company.id}`}>
-                <span className="max-w-[50px]">{company.name || "-"}</span>
-                <sup
-                  className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff] ${
-                    !company.isMOU && "hidden"
-                  }`}
-                >
-                  MOU
-                </sup>
+                {company.name || "-"}
               </Link>
+              <sup
+                className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff]`}
+              >
+                MOU
+              </sup>
             </h3>
             <div className="flex my-1">
-              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[50px]">
+              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-xs min-w-[50px] sm:text-sm">
                 City
               </p>
               <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase leading-5">
@@ -98,7 +96,7 @@ export default function CompanyList({ isLoading, error, filteredCompanies }) {
               </p>
             </div>
             <div className="flex my-1">
-              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[50px]">
+              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-xs min-w-[50px] sm:text-sm">
                 Major
               </p>
               <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase leading-5">
@@ -106,7 +104,7 @@ export default function CompanyList({ isLoading, error, filteredCompanies }) {
               </p>
             </div>
             <div className="flex my-1">
-              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[50px]">
+              <p className="font-sans text-[#3e3c3c] text-left font-semibold text-xs min-w-[50px] sm:text-sm">
                 Field
               </p>
               <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] leading-5">

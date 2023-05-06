@@ -100,7 +100,7 @@ export default function StudentDataInputForm() {
 
   return (
     <>
-      <div className="w-full mt-5 mx-auto flex items-center justify-center min-[499px]:max-w-[75%] md:max-w-md md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0">
+      <div className="w-full mt-5 mx-auto flex items-center justify-center min-[499px]:max-w-[75%] sm:max-w-md sm:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] sm:rounded-sm sm:my-0">
         <form
           id="UserDataInputForm"
           onSubmit={handleSubmit}

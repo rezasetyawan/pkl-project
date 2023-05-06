@@ -62,10 +62,10 @@ export default function FilteredSection({
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-[100] w-full overflow-hidden h-screen p-5 bg-black/80 md:p-10">
-        <div className="relative w-full top-[10%] flex justify-center items-center">
+        <div className="relative w-full top-[15%] flex justify-center items-center">
           <div className="relative bg-white rounded-lg shadow">
             <div className="flex items-start justify-between p-2 border-b rounded-t md:p-4">
-              <span className=" text-lg font-semibold text-gray-900 block md:text-xl ">
+              <span className=" text-lg font-semibold text-gray-900 block md:text-xl font-sans">
                 Filter
               </span>
               <button
@@ -87,15 +87,15 @@ export default function FilteredSection({
                 </svg>
               </button>
             </div>
-            <div className="min-h-[340px] max-h-[340px] overflow-y-scroll overflow-x-hidden">
+            <div className="max-h-[200px] min-[375px]:min-h-[340px] min-[375px]:max-h-[340px] overflow-y-scroll overflow-x-hidden">
               {filterTitles.map((title, index) => (
                 <div key={index} className="p-5">
-                  <p>{title}</p>
+                  <p className="font-sans first-letter:uppercase font-medium">{title}</p>
                   {filterCategories[title].map((category) => (
                     <button
                       key={category}
-                      className={`m-2 py-2 px-4 bg-slate-200 ${
-                        filters[title].includes(category) ? "ring-1" : "ring-0"
+                      className={`m-2 py-2 px-4 bg-slate-200 font-sans rounded-lg text-base ${
+                        filters[title].includes(category) ? "ring-2 ring-offset-1" : "ring-0"
                       } `}
                       onClick={() => {
                         handleFilterChange(title, category);
@@ -110,7 +110,7 @@ export default function FilteredSection({
             <div class="flex items-center p-2 space-x-2 border-t border-gray-200 rounded-b flex-row-reverse gap-2 md:p-4 ">
               <button
                 type="button"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                class="text-white bg-primary-color hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center font-sans"
                 onClick={() => {
                   filterButtonHandler();
                   setShowFilterSection(false);
@@ -120,7 +120,7 @@ export default function FilteredSection({
               </button>
               <button
                 type="button"
-                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 "
+                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 font-sans "
                 onClick={() => resetFilterButtonHandler()}
               >
                 Reset Filter
