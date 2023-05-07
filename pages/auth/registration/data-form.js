@@ -27,9 +27,9 @@ export default function StudentDataInput() {
             <StudentDataInputForm></StudentDataInputForm>
           </div>
         ) : (
-          <div className="mx-auto my-24 md:w-[400px]">
+          <div className="mx-auto py-24 bg-white h-full sm:max-w-md sm:shadow-md">
             <div className="flex flex-col w-full">
-              <h2 className="font-[600] text-3xl leading-7 w-[300px] text-left md:w-[90%] mx-auto">
+              <h2 className="font-[600] text-3xl leading-7 w-[300px] text-left md:w-[90%] mx-auto font-sans">
                 Before proceeding, please complete your personal data
               </h2>
               <div className="mt-12 flex justify-center">

@@ -1,10 +1,8 @@
-import { useCollectionsID } from "@/lib/firestore";
 import CompanyDetail from "@/components/student/CompanyDetail";
-import Layout from "@/components/Layout";
 import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import BackButtonIcon from "../../../public/icon/back-button-icon.svg";
 import { getDocumentsId } from "@/lib/firestore";
+
 
 export async function getStaticPaths() {
   const paths = await getDocumentsId("companies");
@@ -26,6 +24,5 @@ export async function getStaticProps({ params }) {
 }
 
 export default function CompanyDetailPage({ companyDetailData }) {
-  console.log(companyDetailData);
   return <CompanyDetail companyDetailData={companyDetailData}></CompanyDetail>;
 }
