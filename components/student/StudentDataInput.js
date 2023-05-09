@@ -31,6 +31,8 @@ export default function StudentDataInputForm({
   const [pklEndDate, setPklEndDate] = useState(
     studentData ? studentData.pklEndDate : ""
   );
+  
+  console.log(studentData.certificateUrl)
   const [certificate, setCertificate] = useState(null);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -78,6 +80,7 @@ export default function StudentDataInputForm({
     setPklEndDate("");
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const studentClassArrayData = studentClass.split(" ");
@@ -122,7 +125,7 @@ export default function StudentDataInputForm({
   console.log();
   return (
     <>
-      <div className="relative w-full pt-5 pb-36 mx-auto flex flex-col items-center justify-center min-[499px]:max-w-[75%] sm:max-w-md sm:shadow-xl sm:rounded-sm sm:my-0 bg-white sm:pt-3 sm:pb-0 lg:min-h-full">
+      <article className="relative w-full pt-5 pb-36 mx-auto flex flex-col items-center justify-center min-[499px]:max-w-[75%] sm:max-w-md sm:shadow-xl sm:rounded-sm sm:my-0 bg-white sm:pt-3 sm:pb-0 lg:min-h-full">
         {children}
         <h2 className="font-sans text-xl font-semibold p-4">
           Personal Data Form
@@ -272,7 +275,7 @@ export default function StudentDataInputForm({
             <NextButtonIcon />
           </button>
         </form>
-      </div>
+      </article>
     </>
   );
 }

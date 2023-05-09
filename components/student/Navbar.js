@@ -40,7 +40,7 @@ export default function Navbar({ navBar, setNavbar }) {
             </li>
             <li className="inline-block text-center text-primary-color font-bold">
               <Link
-                href="/about"
+                href="/student/about"
                 className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md"
                 onClick={() => setNavbar(!navBar)}
               >

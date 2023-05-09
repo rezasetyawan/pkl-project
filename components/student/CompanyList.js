@@ -82,7 +82,9 @@ export default function CompanyList({ isLoading, error, filteredCompanies }) {
                 {company.name || "-"}
               </Link>
               <sup
-                className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff]`}
+                className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff] ${
+                  !company.isMOU && "hidden"
+                }`}
               >
                 MOU
               </sup>

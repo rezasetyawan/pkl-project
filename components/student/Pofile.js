@@ -5,23 +5,23 @@ import EditButtonIcon from "../../public/icon/edit-button-icon.svg";
 import { useRouter } from "next/router";
 import { useDocumentByID } from "@/lib/firestore";
 import { useMemo, useState } from "react";
-import { auth } from "@/lib/firebase";
+import Loading from "../Loading";
 import StudentDataInputForm from "./StudentDataInput";
+import { auth } from "@/lib/firebase";
 
-export default function StudentProfile() {
+export default function StudentProfile({ user }) {
   const [studentData, setStudentData] = useState({});
   const [showEditSection, setShowEditSection] = useState(false);
-  const user = auth.currentUser;
   const router = useRouter();
-
-  const { documentData, isLoading, error } = useDocumentByID(
-    "students",
-    user.displayName
-  );
+  const { documentData,isLoading, error } = useDocumentByID("students", user.displayName);
 
   useMemo(() => {
     documentData && setStudentData(documentData);
   }, [documentData]);
+
+  if (isLoading) {
+    return <Loading></Loading>
+  }
 
   const manageButtonHandler = () => {
     console.log("clicked");
@@ -32,7 +32,11 @@ export default function StudentProfile() {
   console.log(studentData);
 
   return showEditSection ? (
-    <StudentDataInputForm studentData={studentData} isEditing={showEditSection} setIsEditing={setShowEditSection}>
+    <StudentDataInputForm
+      studentData={studentData}
+      isEditing={showEditSection}
+      setIsEditing={setShowEditSection}
+    >
       <button
         className="absolute top-8 left-3 min-[425px]:left-2 min-[425px]:top-6 p-3 hover:scale-110 transition-transform"
         onClick={() => setShowEditSection(false)}
@@ -42,7 +46,7 @@ export default function StudentProfile() {
     </StudentDataInputForm>
   ) : (
     <article className="w-full min-h-full pb-6 bg-white mx-auto sm:max-w-md sm:shadow-md">
-      <div className="flex items-center justify-center gap-20 pt-8 min-[375px]:gap-28">
+      <div className="flex items-center justify-center gap-16 min-[375px]:gap-20 pt-4 min-[425px]:gap-28">
         <button
           className="p-3 hover:scale-110 transition-transform hover:ring-2 rounded-md"
           onClick={() => router.back()}

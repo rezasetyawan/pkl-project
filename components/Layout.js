@@ -6,7 +6,7 @@ const work_sans = Work_Sans({
 });
 
 const poppins = Poppins({
-  weight: ['400','600'],
+  weight: ["400", "600"],
   subsets: ["latin"],
   variable: "--font-poppins",
 });

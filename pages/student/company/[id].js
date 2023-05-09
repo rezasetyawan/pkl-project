@@ -2,7 +2,7 @@ import CompanyDetail from "@/components/student/CompanyDetail";
 import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { getDocumentsId } from "@/lib/firestore";
-
+import { useDocumentByID } from "@/lib/firestore";
 
 export async function getStaticPaths() {
   const paths = await getDocumentsId("companies");

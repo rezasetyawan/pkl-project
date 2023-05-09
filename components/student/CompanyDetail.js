@@ -4,7 +4,7 @@ import BackButtonIcon from "../../public/icon/back-button-icon.svg";
 
 export default function CompanyDetail({ companyDetailData }) {
   const router = useRouter();
-  
+
   return (
     <article className="w-full text-center relative h-full bg-white pt-10">
       <div className="absolute top-8 left-3 min-[425px]:left-5">
@@ -23,7 +23,9 @@ export default function CompanyDetail({ companyDetailData }) {
           <h3 className="font-poppins text-lg font-bold text-[#404040] tracking-wide border-b border-[#c0c0c0] w-max mb-6 text-left max-w-full">
             {companyDetailData.name || "-"}
             <sup
-              className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff]`}
+              className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff] ${
+                !companyDetailData.isMOU && "hidden"
+              }`}
             >
               MOU
             </sup>

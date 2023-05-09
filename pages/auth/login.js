@@ -1,6 +1,5 @@
 import Head from "next/head";
 import SignInForm from "@/components/SignIn";
-import Layout from "@/components/Layout";
 
 export default function SignInPage() {
   return (

@@ -9,11 +9,12 @@ import CompanyPage from "@/components/student/CompanyPage";
 
 export default function Student() {
   const user = auth.currentUser;
-  console.log(user);
   const router = useRouter();
   const [navBar, setNavbar] = useState(false);
 
-  redirectCurrentUserToLoginPage(user, router);
+  useEffect(() => {
+    redirectCurrentUserToLoginPage(user, router);
+  }, [user, router]);
 
   const signOutButtonHandler = async () => {
     signOutUser()
