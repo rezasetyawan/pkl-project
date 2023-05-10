@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import BackButtonIcon from "../../public/icon/back-button-icon.svg";
-import { useState } from "react";
-import Loading from "../Loading";
 
 export default function CompanyDetail({ companyDetailData }) {
-  const router = useRouter();  
-  
+  const router = useRouter();
+
   return (
     <article className="w-full text-center relative h-full bg-white pt-10">
       <div className="absolute top-8 left-3 min-[425px]:left-5">

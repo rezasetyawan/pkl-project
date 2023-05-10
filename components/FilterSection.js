@@ -40,19 +40,17 @@ export default function FilteredSection({
       return;
     }
     const filteredList = dataList.filter((item) => {
-      if (
-        filters.city.length > 0 &&
-        !filters.city.includes(item.city.toString())
-      ) {
-        return false;
+      for (const key in filters) {
+        if (filters.hasOwnProperty(key)) {
+          if (
+            filters[key].length > 0 &&
+            !filters[key].includes(item.city.toString())
+          ) {
+            return false;
+          }
+          return true;
+        }
       }
-      if (
-        filters.majorTarget.length > 0 &&
-        !filters.majorTarget.includes(item.major_target.toString())
-      ) {
-        return false;
-      }
-      return true;
     });
     setDataList(filteredList);
     console.log("filters");
@@ -90,12 +88,16 @@ export default function FilteredSection({
             <div className="max-h-[200px] min-[375px]:min-h-[340px] min-[375px]:max-h-[340px] overflow-y-scroll overflow-x-hidden">
               {filterTitles.map((title, index) => (
                 <div key={index} className="p-5">
-                  <p className="font-sans first-letter:uppercase font-medium">{title}</p>
+                  <p className="font-sans first-letter:uppercase font-medium">
+                    {title}
+                  </p>
                   {filterCategories[title].map((category) => (
                     <button
                       key={category}
                       className={`m-2 py-2 px-4 bg-slate-200 font-sans rounded-lg text-base ${
-                        filters[title].includes(category) ? "ring-2 ring-offset-1" : "ring-0"
+                        filters[title].includes(category)
+                          ? "ring-2 ring-offset-1"
+                          : "ring-0"
                       } `}
                       onClick={() => {
                         handleFilterChange(title, category);

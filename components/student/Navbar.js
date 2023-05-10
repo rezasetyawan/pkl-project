@@ -1,5 +1,4 @@
 import Link from "next/link";
-import AppLogo from "../../public/icon/app-logo.svg";
 
 export default function Navbar({ navBar, setNavbar }) {
   return (

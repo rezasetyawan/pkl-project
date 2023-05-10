@@ -9,6 +9,8 @@ import { UserContext } from "@/context/UserContext";
 export default function StudentDataInputForm({
   isEditing,
   setIsEditing,
+  editCertificate,
+  setEditCertificate,
   studentData,
   children,
 }) {
@@ -93,29 +95,33 @@ export default function StudentDataInputForm({
       pklEndDate
     );
 
-    await setDoc(doc(db, "students", user.uid), userData)
+    await setDoc(doc(db, "students", user.uid), userData,{merge: true})
       .then()
       .catch((error) => {
-        alert(error)
+        alert(error);
       });
 
     if (!certificate) {
+      await updateDoc(doc(db, "students", user.uid), {
+        certificateUrl: "",
+      });
       isEditing ? setIsEditing(false) : router.push("/student/");
       return;
     }
 
-    uploadingCertificate(nis, certificate)
-      .then(async () => {
-        const certificateUrl = await getCertificateUrl(nis);
-        await updateDoc(doc(db, "students", user.uid), {
-          certificateUrl: certificateUrl,
+      uploadingCertificate(nis, certificate)
+        .then(async () => {
+          const certificateUrl = await getCertificateUrl(nis);
+          await updateDoc(doc(db, "students", user.uid), {
+            certificateUrl: certificateUrl,
+          });
+          resetForm();
+          setEditCertificate(false)
+          isEditing ? setIsEditing(false) : router.push("/student/");
+        })
+        .catch((error) => {
+          alert(error);
         });
-        resetForm();
-        isEditing ? setIsEditing(false) : router.push("/student/");
-      })
-      .catch((error) => {
-        alert(error);
-      });
   };
 
   return (
@@ -139,6 +145,7 @@ export default function StudentDataInputForm({
             </label>
             <input
               type="text"
+              readOnly={editCertificate && true}
               id="name"
               value={name}
               onChange={(event) => {
@@ -156,6 +163,7 @@ export default function StudentDataInputForm({
             </label>
             <input
               type="text"
+              readOnly={editCertificate && true}
               id="studentClass"
               value={studentClass}
               onChange={(event) => setstudentClass(event.target.value)}
@@ -171,6 +179,7 @@ export default function StudentDataInputForm({
             </label>
             <input
               type="number"
+              readOnly={editCertificate && true}
               id="nis"
               value={nis}
               onChange={(event) => setNis(event.target.value)}
@@ -186,6 +195,7 @@ export default function StudentDataInputForm({
             </label>
             <input
               type="text"
+              readOnly={editCertificate && true}
               id="pklPlace"
               value={pklPlace}
               onChange={(event) => setPklPlace(event.target.value)}
@@ -201,6 +211,7 @@ export default function StudentDataInputForm({
             </label>
             <input
               type="text"
+              readOnly={editCertificate && true}
               id="pklAddress"
               value={pklAddress}
               onChange={(event) => setPklAddress(event.target.value)}
@@ -216,6 +227,7 @@ export default function StudentDataInputForm({
               </label>
               <input
                 type="date"
+                readOnly={editCertificate && true}
                 id="pklStartDate"
                 value={pklStartDate}
                 onChange={(event) => setPklStartDate(event.target.value)}
@@ -229,6 +241,7 @@ export default function StudentDataInputForm({
               </label>
               <input
                 type="date"
+                readOnly={editCertificate && true}
                 id="pklEndDate"
                 value={pklEndDate}
                 onChange={(event) => setPklEndDate(event.target.value)}
@@ -237,7 +250,7 @@ export default function StudentDataInputForm({
             </div>
           </div>
 
-          <div className="my-3">
+          <div className={`my-3 ${!editCertificate && "invisible"}`}>
             <label className="block text-sm text-slate-800 font-bold font-sans">
               Certificate <span className="text-xs italic">(optional)</span>
             </label>
@@ -263,8 +276,8 @@ export default function StudentDataInputForm({
             disabled={error ? true : false}
             className={`${
               error
-                ? "cursor-not-allowed bg-black/30 mt-10 rounded-md text-center  py-4 px-5 float-right mr-0"
-                : "bg-primary-color mt-10 rounded-md text-center py-4 px-5 float-right mr-0"
+                ? "cursor-not-allowed bg-black/30 -mt-2 rounded-md text-center  py-4 px-5 float-right mr-0"
+                : "bg-primary-color -mt-2 rounded-md text-center py-4 px-5 float-right mr-0"
             }`}
           >
             <NextButtonIcon />

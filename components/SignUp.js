@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signInUser, signUpStudent } from "@/auth/firebase-auth";
+import { signUpStudent } from "@/auth/firebase-auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
