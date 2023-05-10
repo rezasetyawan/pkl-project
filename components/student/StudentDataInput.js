@@ -250,7 +250,7 @@ export default function StudentDataInputForm({
             </div>
           </div>
 
-          <div className={`my-3 ${!editCertificate && "invisible"}`}>
+          <div className={`my-3 ${!editCertificate && isEditing ? "invisible" : "block"}`}>
             <label className="block text-sm text-slate-800 font-bold font-sans">
               Certificate <span className="text-xs italic">(optional)</span>
             </label>
