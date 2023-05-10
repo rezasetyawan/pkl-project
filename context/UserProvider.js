@@ -2,9 +2,6 @@ import { useState, useEffect, useContext } from "react";
 
 import { auth, db } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-
-import useSWR from "swr";
 import Loading from "@/components/Loading";
 import { UserContext } from "./UserContext";
 import { useRouter } from "next/router";
@@ -24,7 +21,7 @@ const UserProvider = ({ children }) => {
   }, []);
 
   if (isLoading) {
-    return <Loading />; // or any other loading indicator
+    return <Loading />;
   }
 
   if (!user) {

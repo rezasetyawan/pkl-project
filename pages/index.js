@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "@/context/UserContext";
 import { useRouter } from "next/router";
 import { db } from "@/lib/firebase";
@@ -8,8 +8,6 @@ import useSWR from "swr";
 
 export default function Home() {
   const user = useContext(UserContext);
-  console.log("user");
-  console.log(user);
   const router = useRouter();
 
   const fetcher = async (docId) => {

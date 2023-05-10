@@ -1,5 +1,5 @@
-import StudentProfile from "@/components/student/Pofile";
+import ConfirmationModal from "@/components/ConfirmationModal"
 
 export default function UserProfile () {
-    return <StudentProfile></StudentProfile>
+    return <ConfirmationModal></ConfirmationModal>
 }

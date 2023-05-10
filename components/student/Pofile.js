@@ -7,13 +7,16 @@ import { useDocumentByID } from "@/lib/firestore";
 import { useMemo, useState } from "react";
 import Loading from "../Loading";
 import StudentDataInputForm from "./StudentDataInput";
+import ConfirmationModal from "../ConfirmationModal";
 import { auth } from "@/lib/firebase";
+import { signOutUser } from "@/auth/firebase-auth";
 
 export default function StudentProfile({ user }) {
   const [studentData, setStudentData] = useState({});
   const [showEditSection, setShowEditSection] = useState(false);
+  const [showConfirmationModal,setShowConfirmationModal] = useState(false)
   const router = useRouter();
-  const { documentData,isLoading, error } = useDocumentByID("students", user.displayName);
+  const { documentData,isLoading, error } = useDocumentByID("students", user ?  user.displayName : null);
 
   useMemo(() => {
     documentData && setStudentData(documentData);
@@ -27,6 +30,7 @@ export default function StudentProfile({ user }) {
     console.log("clicked");
     setShowEditSection(true);
   };
+
 
   console.log("student data");
   console.log(studentData);
@@ -45,6 +49,7 @@ export default function StudentProfile({ user }) {
       </button>
     </StudentDataInputForm>
   ) : (
+    <>
     <article className="w-full min-h-full pb-6 bg-white mx-auto sm:max-w-md sm:shadow-md">
       <div className="flex items-center justify-center gap-16 min-[375px]:gap-20 pt-4 min-[425px]:gap-28">
         <button
@@ -54,7 +59,7 @@ export default function StudentProfile({ user }) {
           <BackButtonIcon />
         </button>
         <h2 className="font-sans text-2xl font-semibold">Profile</h2>
-        <button className="px-3 py-2 hover:scale-110 transition-transform hover:ring-2 rounded-md">
+        <button className="px-3 py-2 hover:scale-110 transition-transform hover:ring-2 rounded-md" onClick={()=>setShowConfirmationModal(true)}>
           <LogOutButtonIcon />
         </button>
       </div>
@@ -110,5 +115,8 @@ export default function StudentProfile({ user }) {
         </div>
       </section>
     </article>
+    {showConfirmationModal && <ConfirmationModal setShowConfirmationModal={setShowConfirmationModal} actionFunction={signOutUser} message={"Are you sure you want to sign out?"}
+    ></ConfirmationModal>}
+    </>
   );
 }

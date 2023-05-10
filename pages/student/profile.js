@@ -1,11 +1,12 @@
 import { auth } from "@/lib/firebase";
-import { useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "@/context/UserContext";
 import { useRouter } from "next/router";
 import { redirectCurrentUserToLoginPage } from "@/utils/redirectUser";
 import StudentProfile from "@/components/student/Pofile";
 
 export default function ProfilePage() {
-  const user = auth.currentUser;
+  const user = useContext(UserContext);
   const router = useRouter();
 
 //   useEffect(() => {

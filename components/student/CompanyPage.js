@@ -102,7 +102,6 @@ export default function CompanyPage() {
             dataList={filteredCompanies}
             setDataList={setFilteredCompanies}
             dataSource={companyList}
-            showFilterSection={showFilterSection}
             setShowFilterSection={setShowFilterSection}
           ></FilterSection>
         )}

@@ -1,31 +1,24 @@
 import Head from "next/head";
 import Navbar from "@/components/student/Navbar";
+import { db } from "@/lib/firebase";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { redirectCurrentUserToLoginPage } from "@/utils/redirectUser";
 import { signOutUser } from "@/auth/firebase-auth";
 import CompanyPage from "@/components/student/CompanyPage";
+import { UserContext } from "@/context/UserContext";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function Student() {
-  const user = auth.currentUser;
-  const router = useRouter();
+  const user = useContext(UserContext);
   const [navBar, setNavbar] = useState(false);
+  const router = useRouter();
+  if (!user) {
+    router.push("/auth/login");
+    return null;
+  } 
 
-  useEffect(() => {
-    redirectCurrentUserToLoginPage(user, router);
-  }, [user, router]);
-
-  const signOutButtonHandler = async () => {
-    signOutUser()
-      .then(() => {
-        console.log(user.displayName + " sign out successfully");
-        router.push("/auth/login");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
   return (
     user && (
       <>
@@ -37,7 +30,6 @@ export default function Student() {
         </Head>
         <Navbar navBar={navBar} setNavbar={setNavbar}></Navbar>
         <CompanyPage onClick={() => setNavbar(false)}></CompanyPage>
-        <button onClick={signOutButtonHandler}>Sign Out</button>
       </>
     )
   );
