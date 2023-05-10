@@ -19,7 +19,7 @@ const UserProvider = ({ children }) => {
       setIsLoading(false);
 
       if (user) {
-        const docSnapshot = await getDoc(doc(db, "users", user.displayName || user.uid));
+        const docSnapshot = await getDoc(doc(db, "users",user.uid));
         if (docSnapshot.exists()) {
           setUserData(docSnapshot.data());
         }
@@ -35,11 +35,6 @@ const UserProvider = ({ children }) => {
   if (isLoading || isUserDataLoading) {
     return <Loading />;
   }
-
-  if (!user) {
-    router.push("/auth/login");
-  }
-
   return (
     <UserContext.Provider value={user}>
       <UserDataContext.Provider value={userData}>

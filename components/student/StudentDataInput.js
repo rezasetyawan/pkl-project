@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { db } from "../../lib/firebase";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { uploadingCertificate, getCertificateUrl } from "@/lib/fileUpload";
 import NextButtonIcon from "../../public/icon/next-button-icon.svg";
+import { UserContext } from "@/context/UserContext";
 
 export default function StudentDataInputForm({
   isEditing,
@@ -11,7 +12,7 @@ export default function StudentDataInputForm({
   studentData,
   children,
 }) {
-  console.log("is editing" + isEditing);
+  const user = useContext(UserContext);
   const [name, setName] = useState(studentData ? studentData.name : "");
   const [studentClass, setstudentClass] = useState(
     studentData
@@ -31,8 +32,7 @@ export default function StudentDataInputForm({
   const [pklEndDate, setPklEndDate] = useState(
     studentData ? studentData.pklEndDate : ""
   );
-  
-  console.log(studentData.certificateUrl)
+
   const [certificate, setCertificate] = useState(null);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -80,11 +80,9 @@ export default function StudentDataInputForm({
     setPklEndDate("");
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const studentClassArrayData = studentClass.split(" ");
-    console.log(studentClassArrayData);
     const userData = getSignUpData(
       name,
       studentClassArrayData,
@@ -95,11 +93,10 @@ export default function StudentDataInputForm({
       pklEndDate
     );
 
-    await setDoc(doc(db, "students", nis), userData)
+    await setDoc(doc(db, "students", user.uid), userData)
       .then()
       .catch((error) => {
-        console.log(error);
-        alert(error);
+        alert(error)
       });
 
     if (!certificate) {
@@ -110,19 +107,17 @@ export default function StudentDataInputForm({
     uploadingCertificate(nis, certificate)
       .then(async () => {
         const certificateUrl = await getCertificateUrl(nis);
-        await updateDoc(doc(db, "students", nis), {
+        await updateDoc(doc(db, "students", user.uid), {
           certificateUrl: certificateUrl,
         });
         resetForm();
         isEditing ? setIsEditing(false) : router.push("/student/");
       })
       .catch((error) => {
-        console.log(error);
         alert(error);
       });
   };
 
-  console.log();
   return (
     <>
       <article className="relative w-full pt-5 pb-36 mx-auto flex flex-col items-center justify-center min-[499px]:max-w-[75%] sm:max-w-md sm:shadow-xl sm:rounded-sm sm:my-0 bg-white sm:pt-3 sm:pb-0 lg:min-h-full">

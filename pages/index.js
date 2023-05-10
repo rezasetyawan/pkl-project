@@ -1,13 +1,17 @@
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { UserDataContext } from "@/context/UserContext";
+import { UserContext, UserDataContext } from "@/context/UserContext";
 import Head from "next/head";
 
 export default function Home() {
+  const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
 
   useEffect(() => {
+    if (!user) {
+      router.push("/auth/login");
+    }
     if (userData) {
       switch (userData.role) {
         case "student":
@@ -23,7 +27,7 @@ export default function Home() {
           router.push("/");
       }
     }
-  }, [userData, router]);
+  }, [userData, router, user]);
 
   return (
     <>

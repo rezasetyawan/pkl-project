@@ -3,16 +3,26 @@ import StudentDataInputForm from "@/components/student/StudentDataInput";
 import JoinPersonLogo from "../../../public/logo/join.svg";
 import NextButtonIcon from "../../../public/icon/next-button-icon.svg";
 import { auth } from "@/lib/firebase";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { redirectCurrentUserToLoginPage } from "@/utils/redirectUser";
+import { UserContext, UserDataContext } from "@/context/UserContext";
 
 export default function StudentDataInput() {
-  const user = auth.currentUser;
-  const router = useRouter();
   const [nextPage, setNextPage] = useState(false);
+  const user = useContext(UserContext);
+  const userData = useContext(UserDataContext);
+  const router = useRouter();
 
-  redirectCurrentUserToLoginPage(user, router)
+  useEffect(() => {
+    if (!user) {
+      router.push("/auth/login");
+    }
+    if (user == null || userData.role !== "student") {
+      router.push("/auth/login");
+    }
+  }, [userData, router, user]);
+
   return (
     user && (
       <>

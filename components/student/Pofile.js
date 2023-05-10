@@ -16,7 +16,7 @@ export default function StudentProfile({ user }) {
   const [showConfirmationModal,setShowConfirmationModal] = useState(false)
 
   const router = useRouter();
-  const { documentData,isLoading, error } = useDocumentByID("students", user ?  user.displayName || user.uid : null);
+  const { documentData,isLoading, error } = useDocumentByID("students", user ? user.uid : null);
 
   useMemo(() => {
     documentData && setStudentData(documentData);

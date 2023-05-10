@@ -16,10 +16,7 @@ export const signUpStudent = async (email, nis, password, userData) => {
       password
     );
     const user = userCredential.user;
-    await updateProfile(user, {
-      displayName: nis,
-    });
-    await setDoc(doc(db, "users", nis), {...userData, role: 'student'}).then(() => {
+    await setDoc(doc(db, "users", user.uid), {...userData, role: 'student'}).then(() => {
       console.log("welcome");
     });
     return user;

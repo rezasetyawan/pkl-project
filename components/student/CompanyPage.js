@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import CompanyList from "./CompanyList";
 import FilterSection from "../FilterSection";
 import { useDocumentCollections }  from "@/lib/firestore";
-import { useFilterTitlesAndCatagories } from "@/utils/useFilterTitlesAndCategories";
 
 export default function CompanyPage() {
   const [showFilterSection, setShowFilterSection] = useState(false);

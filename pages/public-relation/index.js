@@ -1,15 +1,18 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { UserDataContext } from "@/context/UserContext";
+import { UserContext, UserDataContext } from "@/context/UserContext";
 import { signOutUser } from "@/auth/firebase-auth";
 
 export default function PublicRelationHomePage() {
+  const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
-  const [navBar, setNavbar] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
+    if (!user) {
+      router.push("/auth/login");
+    }
     if (userData) {
       switch (userData.role) {
         case "student":
@@ -25,7 +28,8 @@ export default function PublicRelationHomePage() {
           router.push("/");
       }
     }
-  }, [userData, router]);
+  }, [userData, router, user]);
+
   return (
     <>
       <Head>

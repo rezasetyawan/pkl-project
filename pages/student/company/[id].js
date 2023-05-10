@@ -16,10 +16,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-
   const companyDetail = await getDoc(doc(db, "companies", params.id));
   const companyDetailData = companyDetail.data();
-  console.log(companyDetailData)
+  console.log(companyDetailData);
   return {
     props: {
       companyDetailData,
@@ -28,15 +27,18 @@ export async function getStaticProps({ params }) {
 }
 
 export default function CompanyDetailPage({ companyDetailData }) {
-  const user = useContext(UserContext)
+  const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
 
   useEffect(() => {
-    if (user == null || userData.role !== "student" ) {
-      router.push("/auth/login")
+    if (!user) {
+      router.push("/auth/login");
     }
-  }, [userData, router,user]);
+    if (user == null || userData.role !== "student") {
+      router.push("/auth/login");
+    }
+  }, [userData, router, user]);
 
   return <CompanyDetail companyDetailData={companyDetailData}></CompanyDetail>;
 }
