@@ -42,8 +42,8 @@ export default function SignupForm() {
     <div className="w-full h-full mx-auto flex items-center justify-center bg-white min-[499px]:max-w-[75%] md:max-w-md md:h-[100vh] md:shadow-[0_0_10px_0_rgba(0,0,0,0.2)] md:rounded-sm md:my-0">
       <form id="signUpForm" onSubmit={handleSubmit} className="w-[75%]">
         <div>
-          <h2 className="font-[600] text-[25px]">Sign Up</h2>
-          <p className="font-[400] text-sm text-black/70">
+          <h2 className="font-[600] text-[25px] font-sans">Sign Up</h2>
+          <p className="font-[400] text-sm text-black/70 font-sans">
             Welcome! Please SignUp First :D
           </p>
           {error ? <p className="text-red-600 text-sm font-semibold py-2">{error}</p> : <p className="invisible">Halo banh :D</p>}
@@ -55,7 +55,7 @@ export default function SignupForm() {
             id="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
+            className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999] font-sans"
             placeholder="Email"
             required
           />
@@ -67,7 +67,7 @@ export default function SignupForm() {
             id="nis"
             value={nis}
             onChange={(event) => setNis(event.target.value)}
-            className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
+            className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999] font-sans"
             placeholder="NIS"
             required
           />
@@ -80,7 +80,7 @@ export default function SignupForm() {
             id="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999]"
+            className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999] font-sans"
             placeholder="Password"
             minLength={8}
             required
@@ -120,9 +120,9 @@ export default function SignupForm() {
           >
             Sign Up
           </button>
-          <p className="text-slate-600 text-sm text-center mt-2">
+          <p className="text-slate-600 text-sm text-center mt-2 font-sans">
             Don&rsquo;t have account? Click{" "}
-            <Link href={"/auth/login"} className="text-sky-500">Sign In</Link>
+            <Link href={"/auth/login"} className="text-sky-500 font-sans">Sign In</Link>
           </p>
         </div>
       </form>

@@ -261,7 +261,7 @@ export default function StudentDataInputForm({
               className="block w-full before:mr-4 before:px-4 before:pt-4 before:pb-3 before:cursor-pointer before:rounded-xl before:content-[url('../public/icon/add-icon.svg')] before:bg-black/40 file:hidden pb-3 py-4 pr-3 my-3 font-semibold"
             />
             <p className="mt-1 text-slate-500 text-sm" id="file_input_help">
-              Only PDF
+              PDF File Only
             </p>
           </div>
 
