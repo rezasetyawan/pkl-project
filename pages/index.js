@@ -1,57 +1,29 @@
-import Head from "next/head";
-import { useContext, useState } from "react";
-import { UserContext } from "@/context/UserContext";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { db } from "@/lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
-import useSWR from "swr";
+import { UserDataContext } from "@/context/UserContext";
+import Head from "next/head";
 
 export default function Home() {
-  const user = useContext(UserContext);
+  const userData = useContext(UserDataContext);
   const router = useRouter();
 
-  const fetcher = async (docId) => {
-    const docSnapshot = await getDoc(doc(db, "users", docId));
-    const userData = docSnapshot.data();
-    return { ...userData };
-  };
-
-  const { data, error } = useSWR(
-    user ? user.displayName || user.uid : null,
-    fetcher,
-    {
-      suspense: true,
-      shouldRetryOnError: (error) => {
-        if (user) {
-          return true;
-        }
-        return false;
-      },
+  useEffect(() => {
+    if (userData) {
+      switch (userData.role) {
+        case "student":
+          router.push("/student/");
+          break;
+        case "public_relation":
+          router.push("/public-relation/");
+          break;
+        case "company":
+          router.push("/company/");
+          break;
+        default:
+          router.push("/");
+      }
     }
-  );
-
-  if (!user) {
-    return null;
-  }
-
-  if (typeof window !== "undefined") {
-    console.log("data");
-    console.log(data);
-    switch (data.role) {
-      case "student":
-        router.push("/student/");
-        break;
-      case "public_relation":
-        router.push("/public-relation/");
-        break;
-      case "company":
-        router.push("/company/");
-        break;
-      default:
-        router.push("/");
-    }
-    return null;
-  }
+  }, [userData, router]);
 
   return (
     <>

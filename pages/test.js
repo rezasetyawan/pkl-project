@@ -1,5 +1,5 @@
 import ConfirmationModal from "@/components/ConfirmationModal"
 
-export default function UserProfile () {
+export default function Test () {
     return <ConfirmationModal></ConfirmationModal>
 }

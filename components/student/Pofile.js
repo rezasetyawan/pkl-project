@@ -2,21 +2,21 @@ import BackButtonIcon from "../../public/icon/back-button-icon.svg";
 import UserIcon from "../../public/icon/user-icon.svg";
 import LogOutButtonIcon from "../../public/icon/logout-button-icon.svg";
 import EditButtonIcon from "../../public/icon/edit-button-icon.svg";
-import { useRouter } from "next/router";
-import { useDocumentByID } from "@/lib/firestore";
-import { useMemo, useState } from "react";
 import Loading from "../Loading";
 import StudentDataInputForm from "./StudentDataInput";
 import ConfirmationModal from "../ConfirmationModal";
-import { auth } from "@/lib/firebase";
+import { useRouter } from "next/router";
+import { useDocumentByID } from "@/lib/firestore";
+import { useMemo, useState } from "react";
 import { signOutUser } from "@/auth/firebase-auth";
 
 export default function StudentProfile({ user }) {
   const [studentData, setStudentData] = useState({});
   const [showEditSection, setShowEditSection] = useState(false);
   const [showConfirmationModal,setShowConfirmationModal] = useState(false)
+
   const router = useRouter();
-  const { documentData,isLoading, error } = useDocumentByID("students", user ?  user.displayName : null);
+  const { documentData,isLoading, error } = useDocumentByID("students", user ?  user.displayName || user.uid : null);
 
   useMemo(() => {
     documentData && setStudentData(documentData);
@@ -30,10 +30,6 @@ export default function StudentProfile({ user }) {
     console.log("clicked");
     setShowEditSection(true);
   };
-
-
-  console.log("student data");
-  console.log(studentData);
 
   return showEditSection ? (
     <StudentDataInputForm
@@ -51,7 +47,7 @@ export default function StudentProfile({ user }) {
   ) : (
     <>
     <article className="w-full min-h-full pb-6 bg-white mx-auto sm:max-w-md sm:shadow-md">
-      <div className="flex items-center justify-center gap-16 min-[375px]:gap-20 pt-4 min-[425px]:gap-28">
+      <div className="flex items-center justify-center gap-20 pt-4 min-[375px]:gap-28 min-[425px]:gap-32">
         <button
           className="p-3 hover:scale-110 transition-transform hover:ring-2 rounded-md"
           onClick={() => router.back()}
@@ -67,7 +63,7 @@ export default function StudentProfile({ user }) {
         <div className="overflow-hidden rounded-[50%] w-24 h-24 mx-auto border flex justify-center p-1 mt-8">
           <UserIcon />
         </div>
-        <h3 className="font-sans text-xl mt-3">{studentData.name}</h3>
+        <h3 className="font-sans text-xl mt-3">{studentData.name || '-'}</h3>
         <h4 className="font-sans text-black/60 text-sm">
           {studentData.class}/{studentData.major} {studentData.classNumber}
         </h4>
