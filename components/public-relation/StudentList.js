@@ -5,7 +5,6 @@ import { UserDataContext } from "@/context/UserContext";
 import StudentItem from "./StudentItem";
 
 export default function StudentList() {
-  const userData = useContext(UserDataContext);
   const [showFilterSection, setShowFilterSection] = useState(false);
   const [query, setQuery] = useState("");
   const [studentList, setStudentList] = useState([]);
@@ -63,7 +62,7 @@ export default function StudentList() {
         <input
           type="text"
           tabIndex={"0"}
-          placeholder="Search company here"
+          placeholder="Cari nama atau nis"
           onChange={(event) => setQuery(event.target.value)}
           className="bg-[#E9E9E9] w-full h-8 px-2 py-4 rounded-md font-sans font-medium placeholder:text-black/40 placeholder:font-[600] focus:outline-none focus:ring-2"
           onKeyUp={handleEnterKeyUp}

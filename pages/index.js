@@ -21,7 +21,7 @@ export default function Home() {
           router.push("/public-relation/");
           break;
         case "company":
-          router.push("/company/");
+          router.push("/company/"); 
           break;
         default:
           router.push("/");

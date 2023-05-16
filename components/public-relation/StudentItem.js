@@ -7,7 +7,7 @@ import { UserDataContext } from "@/context/UserContext";
 
 export default function StudentItem({ isLoading, error, filteredStudents }) {
   const router = useRouter();
-  const userData = useContext(UserDataContext);
+
   if (isLoading) return <Loading />;
   if (error) return <Error errorMessage={error} />;
   if (filteredStudents.length < 1)
@@ -40,13 +40,6 @@ export default function StudentItem({ isLoading, error, filteredStudents }) {
               <Link href={`/public-relation/student/${student.id}`}>
                 {student.name || "-"}
               </Link>
-              {/* <sup
-                className={`font-bold text-[10px] leading-4 ml-1 text-[#0066ff] ${
-                  !student.isMOU && "hidden"
-                }`}
-              >
-                MOU
-              </sup> */}
             </h3>
             <div className="flex my-1">
               <p className="font-sans text-[#3e3c3c] text-left font-semibold text-xs min-w-[70px] sm:text-sm">

@@ -5,13 +5,16 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { UserContext, UserDataContext } from "@/context/UserContext";
 import { signOutUser } from "@/auth/firebase-auth";
+import SideBarPR from "@/components/public-relation/Sidebar";
+import ConfirmationModal from "@/components/ConfirmationModal";
 
 export default function PublicRelationCompaniesPage() {
-  const [navbar,setNavbar] = useState(false)
+  const [sidebar, setSidebar] = useState(false);
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
-  console.log(userData)
+  const [ShowLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
+
   useEffect(() => {
     if (!user) {
       router.push("/auth/login");
@@ -29,9 +32,23 @@ export default function PublicRelationCompaniesPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavbarPR navBar={navbar} setNavbar={setNavbar}></NavbarPR>
-      <CompanyList></CompanyList>
-      <button onClick={signOutUser}>Sign Out</button>
+      <NavbarPR sidebar={sidebar} setSidebar={setSidebar}></NavbarPR>
+      <SideBarPR
+        sidebar={sidebar}
+        setShowLogOutConfirmation={setShowLogOutConfirmation}
+      ></SideBarPR>
+      <div class={`lg:ml-64`}>
+        <div class="rounded-lg mt-14">
+          <CompanyList></CompanyList>
+        </div>
+      </div>
+      {ShowLogOutConfirmation && (
+        <ConfirmationModal
+          actionFunction={signOutUser}
+          setShowConfirmationModal={setShowLogOutConfirmation}
+          message={"Apakah anda yakin ingin keluar?"}
+        ></ConfirmationModal>
+      )}
     </>
   );
 }

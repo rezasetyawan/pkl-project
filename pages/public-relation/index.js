@@ -4,14 +4,16 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { UserContext, UserDataContext } from "@/context/UserContext";
 import { signOutUser } from "@/auth/firebase-auth";
-import { collection, getCountFromServer, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import SideBarPR from "@/components/public-relation/Sidebar";
+import ConfirmationModal from "@/components/ConfirmationModal";
+import PublicRelationHome from "@/components/public-relation/Home";
 
 export default function PublicRelationHomePage() {
-  const [navbar, setNavbar] = useState(false);
+  const [sidebar, setSidebar] = useState(false);
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
+  const [ShowLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
 
   useEffect(() => {
     if (!user || !userData) {
@@ -24,9 +26,7 @@ export default function PublicRelationHomePage() {
   if (!user || !userData) {
     return null;
   }
-
-  // getCountFromServer(collection(db,"users")).then(snap=> console.log(snap.data().count))
-
+  
   return (
     <>
       <Head>
@@ -35,8 +35,23 @@ export default function PublicRelationHomePage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavbarPR navBar={navbar} setNavbar={setNavbar}></NavbarPR>
-      <button onClick={signOutUser}>Sign Out</button>
+      <NavbarPR sidebar={sidebar} setSidebar={setSidebar}></NavbarPR>
+      <SideBarPR
+        sidebar={sidebar}
+        setShowLogOutConfirmation={setShowLogOutConfirmation}
+      ></SideBarPR>
+      <div class={`lg:ml-64`}>
+        <div class="rounded-lg mt-14">
+          <PublicRelationHome></PublicRelationHome>
+          {ShowLogOutConfirmation && (
+            <ConfirmationModal
+              actionFunction={signOutUser}
+              setShowConfirmationModal={setShowLogOutConfirmation}
+              message={"Apakah anda yakin ingin keluar?"}
+            ></ConfirmationModal>
+          )}
+        </div>
+      </div>
     </>
   );
 }

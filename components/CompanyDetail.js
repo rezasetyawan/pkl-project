@@ -32,7 +32,7 @@ export default function CompanyDetail({ companyDetailData }) {
 
   return (
     <>
-      <article className="w-full text-center relative h-screen bg-white pt-10 px-10 border">
+      <article className="w-full text-center relative h-screen bg-white pt-10 px-10 rounded-md">
         <button
           onClick={() => router.back()}
           className="absolute top-8 left-3 min-[425px]:left-7 min-[425px]:top-8 text-center p-3 hover:scale-110 transition-transform hover:ring-2 rounded-md"
