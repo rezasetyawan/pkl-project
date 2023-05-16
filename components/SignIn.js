@@ -19,20 +19,28 @@ export default function SignInForm() {
   };
 
   const handleSubmit = async (event) => {
-    setIsLoading(true)
+    setIsLoading(true);
     event.preventDefault();
+    let currentUser;
     await signInUser(email, password)
       .then((user) => {
         resetForm();
-        router.push("/")
-        return
+        currentUser = user;
       })
       .catch((error) => {
         setError(error.message);
         console.error(error.message);
       });
 
+
       setIsLoading(false)
+
+    if (currentUser) {
+      setTimeout(() => {
+        setIsLoading(false);
+        router.push("/");
+      }, 300);
+    }
   };
 
   return (

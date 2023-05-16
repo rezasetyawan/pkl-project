@@ -16,12 +16,9 @@ export default function PublicRelationHomePage() {
   useEffect(() => {
     if (!user || !userData) {
       router.push("/auth/login");
+    } else if (userData.role !== "public_relation") {
+      router.push("/auth/login");
     }
-    setTimeout(() => {
-      if (userData.role !== "public_relation") {
-        router.push("/auth/login");
-      }
-    }, 1000);
   }, [userData, router, user]);
 
   if (!user || !userData) {
