@@ -8,7 +8,7 @@ import { collection, getCountFromServer, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 export default function PublicRelationHomePage() {
-  const [navbar,setNavbar] = useState(false)
+  const [navbar, setNavbar] = useState(false);
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
@@ -16,15 +16,17 @@ export default function PublicRelationHomePage() {
   useEffect(() => {
     if (!user || !userData) {
       router.push("/auth/login");
-    } else if (userData.role !== "public_relation") {
-      router.push("/auth/login");
     }
+    setTimeout(() => {
+      if (userData.role !== "public_relation") {
+        router.push("/auth/login");
+      }
+    }, 1000);
   }, [userData, router, user]);
 
   if (!user || !userData) {
     return null;
   }
-
 
   // getCountFromServer(collection(db,"users")).then(snap=> console.log(snap.data().count))
 

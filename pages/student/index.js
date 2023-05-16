@@ -14,13 +14,16 @@ export default function StudentHomePage() {
   useEffect(() => {
     if (!user || !userData) {
       router.push("/auth/login");
-    } else if (userData.role !== "student") {
-      router.push("/auth/login");
     }
+    setTimeout(() => {
+      if (userData.role !== "student") {
+        router.push("/auth/login");
+      }
+    }, 1000);
   }, [userData, router, user]);
 
   if (!user || !userData) {
-      return null;
+    return null;
   }
   return (
     <>
