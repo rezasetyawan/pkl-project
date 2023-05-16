@@ -1,18 +1,22 @@
 import Head from "next/head";
-import StudentDataInputForm from "@/components/student/StudentDataInput";
+import StudentDataForm from "@/components/student/StudentDataForm";
 import JoinPersonLogo from "../../../public/logo/join.svg";
 import NextButtonIcon from "../../../public/icon/next-button-icon.svg";
-import { auth } from "@/lib/firebase";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { redirectCurrentUserToLoginPage } from "@/utils/redirectUser";
 import { UserContext, UserDataContext } from "@/context/UserContext";
+import { useDocumentByID } from "@/lib/firestore";
 
 export default function StudentDataInput() {
   const [nextPage, setNextPage] = useState(false);
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
+
+  const { documentData, isLoading, error } = useDocumentByID(
+    "students",
+    user ? user.uid : null
+  );
 
   useEffect(() => {
     if (!user) {
@@ -21,7 +25,11 @@ export default function StudentDataInput() {
     if (user == null || userData.role !== "student") {
       router.push("/auth/login");
     }
-  }, [userData, router, user]);
+
+    // if (documentData) {
+    //   router.push("/")
+    // }
+  }, [userData, router, user,documentData]);
 
   return (
     user && (
@@ -34,10 +42,10 @@ export default function StudentDataInput() {
         </Head>
         {nextPage ? (
           <div>
-            <StudentDataInputForm></StudentDataInputForm>
+            <StudentDataForm></StudentDataForm>
           </div>
         ) : (
-          <div className="mx-auto py-24 bg-white h-full sm:max-w-md sm:shadow-md">
+          <div className="mx-auto py-24 bg-white h-screen sm:max-w-md sm:shadow-md">
             <div className="flex flex-col w-full">
               <h2 className="font-[600] text-3xl leading-7 w-[300px] text-left md:w-[90%] mx-auto font-sans">
                 Before proceeding, please complete your personal data

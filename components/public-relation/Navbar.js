@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-export default function Navbar({ navBar, setNavbar }) {
+export default function NavbarPR({ navBar, setNavbar }) {
   return (
     <>
       <header className="grid grid-cols-3 gap-2.5 items-center sticky top-0  shadow z-[99] bg-[#ffffff] px-5 py-2 md:px-10 md:py-3">
         <div className="">
-          <Link href="/student/">
+          <Link href="/">
             <h1 className="font-sans text-primary-color font-extrabold text-base min-[425px]:text-xl md:text-2xl drop-shadow-md shadow-blue-600/50">
               Intern Wolu
             </h1>
@@ -21,26 +21,26 @@ export default function Navbar({ navBar, setNavbar }) {
           >
             <li className="inline-block text-center text-primary-color font-bold font-sans">
               <Link
-                href="/"
-                className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md"
+                href="/public-relation/"
+                className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md active:bg-blue-800"
               >
                 Home
               </Link>
             </li>
             <li className="inline-block text-center text-primary-color font-bold font-sans">
               <Link
-                href="/student/profile"
-                className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md"
+                href="/public-relation/companies"
+                className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md active:bg-blue-800"
               >
-                Profile
+                Dudi
               </Link>
             </li>
             <li className="inline-block text-center text-primary-color font-bold font-sans">
               <Link
-                href="/student/about"
-                className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md"
+                href="/public-relation/students"
+                className="px-3 py-2 hover:text-blue-800 hover:bg-slate-100 hover:rounded-md focus:bg-slate-200 focus:rounded-md active:bg-blue-800"
               >
-                About us
+                Students
               </Link>
             </li>
           </ul>

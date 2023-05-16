@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
-import { db } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { uploadingCertificate, getCertificateUrl } from "@/lib/fileUpload";
 import NextButtonIcon from "../../public/icon/next-button-icon.svg";
 import { UserContext } from "@/context/UserContext";
+import OnContentLoading from "../OnContentLoading";
+import { updateProfile } from "firebase/auth";
 
-export default function StudentDataInputForm({
+export default function StudentDataForm({
   isEditing,
   setIsEditing,
   editCertificate,
@@ -37,6 +39,7 @@ export default function StudentDataInputForm({
 
   const [certificate, setCertificate] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleFileChange = (event) => {
@@ -61,8 +64,8 @@ export default function StudentDataInputForm({
   ) => {
     return {
       name: name,
-      class: studentClassArrayData[0],
-      major: studentClassArrayData[1],
+      class: studentClassArrayData[0].toUpperCase(),
+      major: studentClassArrayData[1].toUpperCase(),
       classNumber: studentClassArrayData[2],
       nis: nis,
       pklPlace: pklPlace,
@@ -83,6 +86,7 @@ export default function StudentDataInputForm({
   };
 
   const handleSubmit = async (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const studentClassArrayData = studentClass.split(" ");
     const userData = getSignUpData(
@@ -95,7 +99,11 @@ export default function StudentDataInputForm({
       pklEndDate
     );
 
-    await setDoc(doc(db, "students", user.uid), userData,{merge: true})
+    await updateProfile(auth.currentUser, {
+      displayName: name,
+    });
+
+    await setDoc(doc(db, "students", user.uid), userData, { merge: true })
       .then()
       .catch((error) => {
         alert(error);
@@ -109,24 +117,25 @@ export default function StudentDataInputForm({
       return;
     }
 
-      uploadingCertificate(nis, certificate)
-        .then(async () => {
-          const certificateUrl = await getCertificateUrl(nis);
-          await updateDoc(doc(db, "students", user.uid), {
-            certificateUrl: certificateUrl,
-          });
-          resetForm();
-          setEditCertificate(false)
-          isEditing ? setIsEditing(false) : router.push("/student/");
-        })
-        .catch((error) => {
-          alert(error);
+    uploadingCertificate(nis, certificate)
+      .then(async () => {
+        const certificateUrl = await getCertificateUrl(nis);
+        await updateDoc(doc(db, "students", user.uid), {
+          certificateUrl: certificateUrl,
         });
+        resetForm();
+        setEditCertificate(false);
+        isEditing ? setIsEditing(false) : router.push("/student/");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+    setIsLoading(false);
   };
 
   return (
     <>
-      <article className="relative w-full pt-5 pb-36 mx-auto flex flex-col items-center justify-center min-[499px]:max-w-[75%] sm:max-w-md sm:shadow-xl sm:rounded-sm sm:my-0 bg-white sm:pt-3 sm:pb-0 lg:min-h-full">
+      <article className="relative w-full h-screen mx-auto flex flex-col items-center min-[499px]:max-w-[75%] sm:max-w-md sm:shadow-xl sm:rounded-sm sm:my-0 bg-white sm:pt-3 sm:pb-0 lg:min-h-full">
         {children}
         <h2 className="font-sans text-xl font-semibold p-4">
           Personal Data Form
@@ -250,7 +259,11 @@ export default function StudentDataInputForm({
             </div>
           </div>
 
-          <div className={`my-3 ${!editCertificate && isEditing ? "invisible" : "block"}`}>
+          <div
+            className={`my-3 ${
+              !editCertificate && isEditing ? "invisible" : "block"
+            }`}
+          >
             <label className="block text-sm text-slate-800 font-bold font-sans">
               Certificate <span className="text-xs italic">(optional)</span>
             </label>
@@ -283,6 +296,7 @@ export default function StudentDataInputForm({
             <NextButtonIcon />
           </button>
         </form>
+        {isLoading && <OnContentLoading></OnContentLoading>}
       </article>
     </>
   );

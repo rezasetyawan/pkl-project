@@ -3,7 +3,7 @@ import UserIcon from "../../public/icon/user-icon.svg";
 import LogOutButtonIcon from "../../public/icon/logout-button-icon.svg";
 import EditButtonIcon from "../../public/icon/edit-button-icon.svg";
 import Loading from "../Loading";
-import StudentDataInputForm from "./StudentDataInput";
+import StudentDataForm from "./StudentDataForm";
 import ConfirmationModal from "../ConfirmationModal";
 import { useRouter } from "next/router";
 import { useDocumentByID } from "@/lib/firestore";
@@ -37,7 +37,7 @@ export default function StudentProfile({ user }) {
   };
 
   return showEditSection ? (
-    <StudentDataInputForm
+    <StudentDataForm
       studentData={studentData}
       isEditing={showEditSection}
       setIsEditing={setShowEditSection}
@@ -45,7 +45,7 @@ export default function StudentProfile({ user }) {
       setEditCertificate={setEditCertificate}
     >
       <button
-        className="absolute top-8 left-3 min-[425px]:left-2 min-[425px]:top-6 p-3 hover:scale-110 transition-transform"
+        className="absolute top-3 left-3 min-[425px]:left-2 min-[425px]:top-6 p-3 hover:scale-110 transition-transform"
         onClick={() => {
           setShowEditSection(false)
           setEditCertificate(false)
@@ -53,7 +53,7 @@ export default function StudentProfile({ user }) {
       >
         <BackButtonIcon />
       </button>
-    </StudentDataInputForm>
+    </StudentDataForm>
   ) : (
     <>
       <article className="w-full min-h-full pb-6 bg-white mx-auto sm:max-w-md sm:shadow-md">

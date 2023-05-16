@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Navbar from "@/components/student/Navbar";
-import CompanyPage from "@/components/student/CompanyPage";
+import CompanyList from "@/components/CompanyList";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { UserContext, UserDataContext } from "@/context/UserContext";
@@ -8,18 +8,20 @@ import { UserContext, UserDataContext } from "@/context/UserContext";
 export default function StudentHomePage() {
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
-  const [navBar, setNavbar] = useState(false);
+  const [navbar, setNavbar] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!user || !userData) {
       router.push("/auth/login");
-    }
-    if (user == null || userData.role !== "student") {
+    } else if (userData.role !== "student") {
       router.push("/auth/login");
     }
   }, [userData, router, user]);
 
+  if (!user || !userData) {
+      return null;
+  }
   return (
     <>
       <Head>
@@ -28,8 +30,8 @@ export default function StudentHomePage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar navBar={navBar} setNavbar={setNavbar}></Navbar>
-      <CompanyPage onClick={() => setNavbar(false)}></CompanyPage>
+      <Navbar navBar={navbar} setNavbar={setNavbar}></Navbar>
+      <CompanyList onClick={() => setNavbar(false)}></CompanyList>
     </>
   );
 }

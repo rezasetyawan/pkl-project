@@ -14,7 +14,7 @@ const poppins = Poppins({
 export default function Layout({ children }) {
   return (
     <main
-      className={`${work_sans.variable} ${poppins.variable} font-sans h-screen`}
+      className={`${work_sans.variable} ${poppins.variable} font-sans`}
     >
       {children}
     </main>

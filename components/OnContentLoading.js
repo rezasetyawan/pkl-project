@@ -1,6 +1,6 @@
-export default function Loading() {
+export default function OnContentLoading() {
   return (
-    <div className="text-center">
+    <div className="fixed text-center w-full h-screen mx-auto flex items-center justify-center bg-black/60">
       <div
         role="status"
         className="absolute top-[50%] left-[50%] -translate-x-2/4 -translate-y-2/4"

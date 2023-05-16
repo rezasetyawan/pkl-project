@@ -1,6 +1,5 @@
-export default function ConfirmationModal({
-  setShowConfirmationModal,
-  actionFunction,
+export default function SuccessModal({
+  setShowSuccessModal,
   message,
 }) {
   return (
@@ -14,7 +13,7 @@ export default function ConfirmationModal({
             <button
               type="button"
               className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-              onClick={() => setShowConfirmationModal(false)}
+              onClick={() => setShowSuccessModal(false)}
             >
               <svg
                 aria-hidden="true"
@@ -33,39 +32,24 @@ export default function ConfirmationModal({
             </button>
             <div className="p-6 text-center">
               <svg
-                aria-hidden="true"
-                className="mx-auto my-4 text-[#656161] w-14 h-14 animate-pulse"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                className="mx-auto my-4 w-14 h-14 animate-pulse"
               >
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  fill=""
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
+                  d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z" fill="#22c55e"
+                />
               </svg>
-              <strong className="mb-5 text-lg font-sans block font-semibold">
-                {message}
-              </strong>
+
+              <span className="mb-5 text-lg font-sans block font-semibold">
+                {message || 'Success'} 
+              </span>
               <button
-                data-modal-hide="popup-modal"
                 type="button"
-                className="text-white font-sans bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2.5 text-center mr-2"
-                onClick={actionFunction}
+                className="text-white font-sans bg-primary-color hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2.5 text-center mr-2"
+                onClick={()=> setShowSuccessModal(false)}
               >
-                Yes, I&apos;m sure
-              </button>
-              <button
-                data-modal-hide="popup-modal"
-                type="button"
-                className="text-gray-500 font-sans bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-3 py-2.5 hover:text-gray-900 focus:z-10 "
-                onClick={() => setShowConfirmationModal(false)}
-              >
-                No, cancel
+                Okay
               </button>
             </div>
           </div>

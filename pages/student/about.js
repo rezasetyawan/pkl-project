@@ -1,6 +1,6 @@
 import About from "@/components/About";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect} from "react";
 import { UserContext, UserDataContext } from "@/context/UserContext";
 
 export default function AboutPage() {

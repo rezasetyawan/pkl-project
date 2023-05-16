@@ -2,7 +2,7 @@ import CompanyDetail from "@/components/CompanyDetail";
 import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { getDocumentsId } from "@/lib/firestore";
-import { useContext, useEffect} from "react";
+import { useContext, useEffect } from "react";
 import { UserContext, UserDataContext } from "@/context/UserContext";
 import { useRouter } from "next/router";
 
@@ -21,6 +21,7 @@ export async function getStaticProps({ params }) {
     id: companyDetail.id,
     ...companyDetail.data(),
   };
+  console.log(companyDetailData);
   return {
     props: {
       companyDetailData,
@@ -37,10 +38,11 @@ export default function CompanyDetailPage({ companyDetailData }) {
     if (!user) {
       router.push("/auth/login");
     }
-    if (user == null || userData.role !== "student") {
+    if (user == null || userData.role !== "public_relation") {
       router.push("/auth/login");
     }
   }, [userData, router, user]);
+  console.log(companyDetailData);
 
   return <CompanyDetail companyDetailData={companyDetailData}></CompanyDetail>;
 }

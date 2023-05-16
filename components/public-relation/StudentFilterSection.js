@@ -1,60 +1,65 @@
 import { useState } from "react";
-export default function FilteredSection({
-  filtersKeyword,
+export default function StudentFilterSection({
+  filterKeywords,
   dataList,
   setDataList,
-  filterTitles,
   filterCategories,
-  dataSource,
   setShowFilterSection,
 }) {
-  const [filters, setFilters] = useState(filtersKeyword);
+  const [filters, setFilters] = useState(filterKeywords);
 
   const handleFilterChange = (title, category) => {
-    console.log("prev filters");
-    console.log(filters);
     const newFilters = { ...filters };
     if (newFilters[title].includes(category)) {
-      newFilters[title] = newFilters[title].filter(
-        (filterCategory) => filterCategory !== category
-      );
+      const indexOfClickedValue = newFilters[title].indexOf(category);
+      indexOfClickedValue > -1 &&
+        newFilters[title].splice(indexOfClickedValue, 1);
     } else {
       newFilters[title].push(category);
     }
+    console.log("current filter");
+    console.log(newFilters);
     setFilters(newFilters);
-    console.log("setting filters");
-    console.log(filters);
   };
 
   const resetFilterButtonHandler = () => {
-    setFilters({ ...filtersKeyword });
-    console.log("reset filters");
-    console.log(filters);
+    setFilters({
+      class: [],
+      major: [],
+      classNumber: [],
+    });
   };
 
   const filterButtonHandler = () => {
-    if (filters.city.length == 0 && filters.majorTarget.length == 0) {
-      console.log("data source");
-      console.log(dataSource);
-      setDataList(dataSource);
-      return;
-    }
-    const filteredList = dataList.filter((item) => {
-      for (const key in filters) {
-        if (filters.hasOwnProperty(key)) {
-          if (
-            filters[key].length > 0 &&
-            !filters[key].includes(item.city.toString())
-          ) {
-            return false;
-          }
-          return true;
+    let filteredData;
+    if (
+      filters.class.length === 0 &&
+      filters.major.length === 0 &&
+      filters.classNumber === 0
+    ) {
+      filteredData = dataList;
+    } else {
+      filteredData = dataList.filter((item) => {
+        let isClassMatch = true;
+        let isMajorMatch = true;
+        let isClassNumberMatch = true;
+
+        if (filters.class.length > 0) {
+          isClassMatch = filters.class.includes(item.class);
         }
-      }
-    });
-    setDataList(filteredList);
-    console.log("filters");
-    console.log(filters);
+
+        if (filters.major.length > 0) {
+          isMajorMatch = filters.major.includes(item.major);
+        }
+
+        if (filters.classNumber.length > 0) {
+          isClassNumberMatch = filters.classNumber.includes(item.classNumber);
+        }
+
+        return isClassMatch && isMajorMatch && isClassNumberMatch;
+      });
+    }
+    setDataList(filteredData);
   };
 
   return (
@@ -86,12 +91,12 @@ export default function FilteredSection({
               </button>
             </div>
             <div className="max-h-[200px] min-[375px]:min-h-[340px] min-[375px]:max-h-[340px] overflow-y-scroll overflow-x-hidden">
-              {filterTitles.map((title, index) => (
+              {Object.keys(filterCategories).map((title, index) => (
                 <div key={index} className="p-5">
                   <p className="font-sans first-letter:uppercase font-medium">
                     {title}
                   </p>
-                  {filterCategories[title].map((category) => (
+                  {filterCategories[title].split(",").map((category) => (
                     <button
                       key={category}
                       className={`m-2 py-2 px-4 bg-slate-200 font-sans rounded-lg text-base ${
@@ -108,8 +113,37 @@ export default function FilteredSection({
                   ))}
                 </div>
               ))}
+              {/* {filterTitles.map((title, index) => (
+                  <div key={index} className="p-5">
+                    <p className="font-sans first-letter:uppercase font-medium">
+                      {title}
+                    </p>
+                    {filterCategories[title].split(",").map((category) => (
+                      <button
+                        key={category}
+                        className={`m-2 py-2 px-4 bg-slate-200 font-sans rounded-lg text-base ${
+                          filters[title].includes(category)
+                            ? "ring-2 ring-offset-1"
+                            : "ring-0"
+                        } `}
+                        onClick={() => {
+                          handleFilterChange(title, category);
+                        }}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                ))} */}
             </div>
-            <div class="flex items-center p-2 space-x-2 border-t border-gray-200 rounded-b flex-row-reverse gap-2 md:p-4 ">
+            <div class="flex items-center justify-end p-2 space-x-2 border-t border-gray-200 rounded-b gap-2 md:p-4 ">
+              <button
+                type="button"
+                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 font-sans "
+                onClick={() => resetFilterButtonHandler()}
+              >
+                Reset Filter
+              </button>
               <button
                 type="button"
                 class="text-white bg-primary-color hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center font-sans"
@@ -119,13 +153,6 @@ export default function FilteredSection({
                 }}
               >
                 Filter
-              </button>
-              <button
-                type="button"
-                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 font-sans "
-                onClick={() => resetFilterButtonHandler()}
-              >
-                Reset Filter
               </button>
             </div>
           </div>

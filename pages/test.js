@@ -1,5 +1,6 @@
-import ConfirmationModal from "@/components/ConfirmationModal"
+import SuccessModal from "@/components/SuccessModal";
 
 export default function Test () {
-    return <ConfirmationModal></ConfirmationModal>
+    return <SuccessModal></SuccessModal>
+    
 }

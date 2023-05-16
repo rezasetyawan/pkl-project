@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import StudentProfile from "@/components/student/Pofile";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect} from "react";
 import { UserContext, UserDataContext } from "@/context/UserContext";
 
 export default function ProfilePage() {
