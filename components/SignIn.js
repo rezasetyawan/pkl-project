@@ -1,9 +1,10 @@
+import OnContentLoading from "./OnContentLoading";
+import Link from "next/link";
 import { useContext, useState } from "react";
 import { signInUser } from "@/auth/firebase-auth";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { UserDataContext } from "@/context/UserContext";
-import OnContentLoading from "./OnContentLoading";
+
 export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,7 +40,7 @@ export default function SignInForm() {
       setTimeout(() => {
         setIsLoading(false);
         router.push("/");
-      }, 300);
+      }, 600);
     }
   };
 

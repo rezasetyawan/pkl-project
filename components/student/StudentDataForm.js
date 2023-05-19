@@ -1,11 +1,11 @@
+import NextButtonIcon from "../../public/icon/next-button-icon.svg";
+import OnContentLoading from "../OnContentLoading";
 import { useContext, useState } from "react";
 import { auth, db } from "../../lib/firebase";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { uploadingCertificate, getCertificateUrl } from "@/lib/fileUpload";
-import NextButtonIcon from "../../public/icon/next-button-icon.svg";
 import { UserContext } from "@/context/UserContext";
-import OnContentLoading from "../OnContentLoading";
 import { updateProfile } from "firebase/auth";
 
 export default function StudentDataForm({

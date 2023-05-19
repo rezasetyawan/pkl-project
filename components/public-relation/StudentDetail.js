@@ -1,12 +1,11 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
+import ConfirmationModal from "../ConfirmationModal";
+import SuccessModal from "../SuccessModal";
 import BackButtonIcon from "../../public/icon/back-button-icon.svg";
-import EditButtonIcon from "../../public/icon/edit-button-icon-white.svg";
+import Link from "next/link";
 import DeleteButtonIcon from "../../public/icon/delete-button-icon.svg";
 import { useContext, useState } from "react";
 import { UserDataContext } from "@/context/UserContext";
-import ConfirmationModal from "../ConfirmationModal";
-import SuccessModal from "../SuccessModal";
+import { useRouter } from "next/router";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 

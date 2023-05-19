@@ -1,5 +1,6 @@
 import BackButtonIcon from "../public/icon/back-button-icon.svg";
 import { useRouter } from "next/router";
+
 export default function About() {
   const router = useRouter();
   return (

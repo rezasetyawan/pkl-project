@@ -1,11 +1,11 @@
-import { useState, useMemo, useContext } from "react";
 import CompanyItem from "./CompanyItem";
 import CompanyFilterSection from "./CompanyFilterSection";
-import { useDocumentCollections } from "@/lib/firestore";
-import { UserDataContext } from "@/context/UserContext";
 import AddButtonIcon from "../public/icon/add-button-icon.svg";
 import CompanyDataForm from "./public-relation/CompanyDataForm";
 import SuccessModal from "./SuccessModal";
+import { useState, useMemo, useContext } from "react";
+import { useDocumentCollections } from "@/lib/firestore";
+import { UserDataContext } from "@/context/UserContext";
 
 export default function CompanyList() {
   const userData = useContext(UserDataContext);
@@ -119,7 +119,7 @@ export default function CompanyList() {
           {showCompanyDataForm && (
             <CompanyDataForm
               setShowCompanyDataForm={setShowCompanyDataForm}
-              setShowSuccesModal={setShowSuccessModal}
+              setShowSuccessModal={setShowSuccessModal}
             ></CompanyDataForm>
           )}
         </div>

@@ -3,13 +3,13 @@ import BackButtonIcon from "../public/icon/back-button-icon.svg";
 import EditButtonIcon from "../public/icon/edit-button-icon-white.svg";
 import DeleteButtonIcon from "../public/icon/delete-button-icon.svg";
 import ConfirmationModal from "./ConfirmationModal";
+import SuccessModal from "./SuccessModal";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { UserDataContext } from "@/context/UserContext";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import SuccessModal from "./SuccessModal";
 
 export default function CompanyDetail({ companyDetailData }) {
   const router = useRouter();
@@ -138,7 +138,7 @@ export default function CompanyDetail({ companyDetailData }) {
           companyData={companyDetailData}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
-          setShowSuccesModal={setShowSuccessModal}
+          setShowSuccessModal={setShowSuccessModal}
           setSuccessModalMessage={setSuccessModalMessage}
         ></CompanyDataForm>
       )}

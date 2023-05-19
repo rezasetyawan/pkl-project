@@ -1,8 +1,8 @@
+import Loading from "@/components/Loading";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { auth, db } from "@/lib/firebase";
 import {getDoc, doc } from "firebase/firestore";
-import Loading from "@/components/Loading";
 import { UserContext, UserDataContext } from "./UserContext";
 import { onAuthStateChanged } from "firebase/auth";
 

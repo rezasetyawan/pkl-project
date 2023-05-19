@@ -13,7 +13,6 @@ import { signOutUser } from "@/auth/firebase-auth";
 
 export async function getStaticPaths() {
   const paths = await getDocumentsId("companies");
-  console.log(paths);
   return {
     paths,
     fallback: false,
@@ -26,7 +25,6 @@ export async function getStaticProps({ params }) {
     id: companyDetail.id,
     ...companyDetail.data(),
   };
-  console.log(companyDetailData);
   return {
     props: {
       companyDetailData,
@@ -49,7 +47,6 @@ export default function CompanyDetailPage({ companyDetailData }) {
       router.push("/auth/login");
     }
   }, [userData, router, user]);
-  console.log(companyDetailData);
 
   return (
     <>

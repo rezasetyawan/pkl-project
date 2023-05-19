@@ -5,11 +5,11 @@ import EditButtonIcon from "../../public/icon/edit-button-icon.svg";
 import Loading from "../Loading";
 import StudentDataForm from "./StudentDataForm";
 import ConfirmationModal from "../ConfirmationModal";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDocumentByID } from "@/lib/firestore";
 import { useMemo, useState } from "react";
 import { signOutUser } from "@/auth/firebase-auth";
-import Link from "next/link";
 
 export default function StudentProfile({ user }) {
   const [studentData, setStudentData] = useState({});

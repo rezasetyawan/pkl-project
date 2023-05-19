@@ -1,8 +1,7 @@
 import StudentFilterSection from "./StudentFilterSection";
-import { useState, useMemo, useContext } from "react";
-import { useDocumentCollections } from "@/lib/firestore";
-import { UserDataContext } from "@/context/UserContext";
 import StudentItem from "./StudentItem";
+import { useState, useMemo} from "react";
+import { useDocumentCollections } from "@/lib/firestore";
 
 export default function StudentList() {
   const [showFilterSection, setShowFilterSection] = useState(false);

@@ -3,38 +3,19 @@ import { db } from "@/lib/firebase";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 
-export default function CompanyDataForm({
-  setShowCompanyDataForm,
-  isEditing,
-  setIsEditing,
-  companyData,
-  setSuccessModalMessage,
+export default function AddCompanyInfoForm({
+  setShowCompanyInfoForm,
   setShowSuccessModal,
+  companyId
 }) {
-  const [companyName, setCompanyName] = useState(
-    companyData ? companyData.name : ""
-  );
-  const [companyCity, setCompanyCity] = useState(
-    companyData ? companyData.city : ""
-  );
-  const [companyAddress, setCompanyAddress] = useState(
-    companyData ? companyData.address : ""
-  );
-  const [companyField, setCompanyField] = useState(
-    companyData ? companyData.field : []
-  );
-  const [companyMajorTarget, setCompanyMajorTarget] = useState(
-    companyData ? companyData.major_target : ""
-  );
-  const [companyPhoneNumber, setCompanyPhoneNumber] = useState(
-    companyData ? companyData.phone : null
-  );
-  const [companyWebsite, setCompanyWebsite] = useState(
-    companyData ? companyData.website : ""
-  );
-  const [companyMouStatus, setCompanyMouStatus] = useState(
-    companyData ? companyData.isMOU : false
-  );
+  const [companyName, setCompanyName] = useState("");
+  const [companyCity, setCompanyCity] = useState("");
+  const [companyAddress, setCompanyAddress] = useState("");
+  const [companyField, setCompanyField] = useState([]);
+  const [companyMajorTarget, setCompanyMajorTarget] = useState("");
+  const [companyPhoneNumber, setCompanyPhoneNumber] = useState(null);
+  const [companyWebsite, setCompanyWebsite] = useState("");
+  const [companyMouStatus, setCompanyMouStatus] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckboxChange = (event) => {
@@ -101,26 +82,14 @@ export default function CompanyDataForm({
       companyMouStatus
     );
 
-    isEditing
-      ? await setDoc(doc(db, "companies", companyData.id), docData, {
-          merge: true,
-        })
-          .then(() => {
-            resetForm();
-            setSuccessModalMessage("Data berhasil diperbarui")
-            setIsEditing(false);
-          })
-          .catch((error) => {
-            alert(error);
-          })
-      : await addDoc(collection(db, "companies"), docData)
-          .then(() => {
-            resetForm();
-            setShowCompanyDataForm(false);
-          })
-          .catch((error) => {
-            alert(error);
-          });
+    await setDoc(doc(db, "companies",companyId), docData)
+      .then(() => {
+        resetForm();
+        setShowCompanyInfoForm(false);
+      })
+      .catch((error) => {
+        alert(error);
+      });
 
     setIsLoading(false);
     setShowSuccessModal(true);
@@ -138,11 +107,7 @@ export default function CompanyDataForm({
               <button
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                onClick={() =>
-                  isEditing
-                    ? setIsEditing(false)
-                    : setShowCompanyDataForm(false)
-                }
+                onClick={() => setShowCompanyInfoForm(false)}
               >
                 <svg
                   className="w-5 h-5"
@@ -306,11 +271,7 @@ export default function CompanyDataForm({
                   <button
                     type="button"
                     class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 font-sans "
-                    onClick={() =>
-                      isEditing
-                        ? setIsEditing(false)
-                        : setShowCompanyDataForm(false)
-                    }
+                    onClick={() => setShowCompanyInfoForm(false)}
                   >
                     Cancel
                   </button>

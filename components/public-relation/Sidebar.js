@@ -10,7 +10,7 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
       aria-label="Sidebar"
     >
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white">
-        <ul className="space-y-2 font-medium">
+        <ul className="space-y-2 font-medium text-sm">
           <li>
             <Link
               href="/public-relation/"

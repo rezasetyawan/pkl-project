@@ -1,8 +1,8 @@
+import OnContentLoading from "./OnContentLoading";
+import Link from "next/link";
 import { useState } from "react";
 import { signUpStudent } from "@/auth/firebase-auth";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import OnContentLoading from "./OnContentLoading";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
