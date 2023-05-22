@@ -126,12 +126,12 @@ export default function PublicRelationHome() {
               </div>
             </div>
           </section>
-          <button
+          {/* <button
             className="px-3 py-1 border my-5 bg-primary-color text-white font-medium rounded-md hover:bg-blue-700 hover:ring-1"
             onClick={() => setShowAddCompanyAccountForm(true)}
           >
             Tambah Dudi
-          </button>
+          </button> */}
         </div>
       </article>
       {/* {showAddCompanyAccountForm && (
