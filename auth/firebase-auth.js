@@ -9,6 +9,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 export const signUpStudent = async (email, password, userData) => {
   try {
+    console.log(password)
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,

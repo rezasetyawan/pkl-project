@@ -27,10 +27,11 @@ export default function SignUpForm() {
   };
 
   const handleSubmit = async (event) => {
+    console.log(password)
     setIsLoading(true);
     const userData = getSignUpData(email, nis);
     event.preventDefault();
-    await signUpStudent(email, nis, password, userData)
+    await signUpStudent(email, password, userData)
       .then((user) => {
         resetForm();
         router.push("/auth/registration/data-form");

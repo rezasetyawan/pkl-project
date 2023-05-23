@@ -75,7 +75,7 @@ export default function CompanyItem({ isLoading, error, filteredCompanies }) {
                 Major
               </p>
               <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase leading-5">
-                : {company.major_target.join(", ") || "-"}
+                : {company.major_target ? company.major_target.join(", ") : "-"} 
               </p>
             </div>
             <div className="flex my-1">
