@@ -89,7 +89,10 @@ export default function SignUpForm() {
               type={`${showPassword ? "text" : "password"}`}
               id="password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) => {
+                setPassword(event.target.value)
+                console.log(password)
+              }}
               className="w-full py-1 border-b-2 border-slate-400 focus:outline-none focus:border-primary-color placeholder:text-sm placeholder:text-[#999999] font-sans"
               placeholder="Password"
               minLength={8}
