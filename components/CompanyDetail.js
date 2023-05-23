@@ -17,13 +17,13 @@ export default function CompanyDetail({ companyDetailData }) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [successModalMessage,setSuccessModalMessage] = useState("")
+  const [successModalMessage, setSuccessModalMessage] = useState("");
 
   const deleteCompanyData = async () => {
     try {
       await deleteDoc(doc(db, "companies", companyDetailData.id));
       setShowDeleteConfirmation(false);
-      setSuccessModalMessage("Data berhasil dihapus")
+      setSuccessModalMessage("Data berhasil dihapus");
       setShowSuccessModal(true);
     } catch (error) {
       alert(error);
@@ -84,7 +84,7 @@ export default function CompanyDetail({ companyDetailData }) {
                 Major target
               </h4>
               <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase">
-                {companyDetailData.major_target.join(", ") || "-"}
+                {company.major_target ? company.major_target.join(", ") : "-"}
               </p>
             </div>
             <div className="flex my-3">
