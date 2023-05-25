@@ -19,7 +19,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const studentDetail = await getDoc(doc(db, "students", params.id));
   const studentDetailData = {
     id: studentDetail.id,

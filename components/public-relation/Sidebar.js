@@ -11,13 +11,13 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
     >
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white">
         <ul className="space-y-2 font-medium text-sm">
-          <li>
+          <li className="group">
             <Link
               href="/public-relation/"
               className="flex items-center p-2 text-sky-900 font-semibold rounded-lg  hover:bg-gray-100"
             >
               <svg
-                className="w-6 h-6 text-primary-color transition duration-75 group-hover:text-sky-900 font-semibold "
+                className="w-6 h-6 fill-primary-color transition duration-75 group-hover:scale-105 font-semibold "
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -28,13 +28,13 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
               <span className="ml-3">Dashboard</span>
             </Link>
           </li>
-          <li>
+          <li className="group">
             <Link
               href="/public-relation/companies"
               className="flex items-center p-2 text-sky-900 font-semibold rounded-lg hover:bg-gray-100"
             >
               <svg
-                className="flex-shrink-0 w-6 h-6 text-primary-color transition duration-75 group-hover:text-sky-900 font-semibold"
+                className="flex-shrink-0 w-6 h-6 fill-primary-color transition duration-75 group-hover:scale-105 font-semibold"
                 fill="currentColor"
                 viewBox="0 0 80 80"
                 xmlns="http://www.w3.org/2000/svg"
@@ -49,13 +49,13 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
               <span className="flex-1 ml-3 whitespace-nowrap">Daftar Dudi</span>
             </Link>
           </li>
-          <li>
+          <li className="group">
             <Link
               href="/public-relation/students"
               className="flex items-center p-2 text-sky-900 font-semibold rounded-lg hover:bg-gray-100"
             >
               <svg
-                className="flex-shrink-0 w-6 h-6 text-primary-color transition duration-75 group-hover:text-sky-900 font-semibold"
+                className="flex-shrink-0 w-6 h-6 fill-primary-color transition duration-75 font-semibold group-hover:scale-105"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -71,13 +71,13 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
               </span>
             </Link>
           </li>
-          <li>
+          <li className="group">
             <button
               className="flex items-center p-2 text-sky-900 font-semibold rounded-lg hover:bg-gray-100 pr-[120px]"
               onClick={() => setShowLogOutConfirmation(true)}
             >
               <svg
-                className="flex-shrink-0 w-6 h-6 text-primary-color transition duration-75  group-hover:text-sky-900 font-semibold "
+                className="flex-shrink-0 w-6 h-6 fill-primary-color transition duration-75  group-hover:scale-105 font-semibold "
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
