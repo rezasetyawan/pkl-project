@@ -2,8 +2,6 @@ import Loading from "../Loading";
 import Error from "../Error";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
-import { UserDataContext } from "@/context/UserContext";
 
 export default function StudentItem({ isLoading, error, filteredStudents }) {
   const router = useRouter();

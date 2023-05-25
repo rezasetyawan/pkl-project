@@ -1,7 +1,7 @@
+import Head from "next/head";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { UserContext, UserDataContext } from "@/context/UserContext";
-import Head from "next/head";
 
 export default function Home() {
   const user = useContext(UserContext);
@@ -35,7 +35,7 @@ export default function Home() {
         <title>Intern Wolu</title>
         <meta name="description" content="Intern Wolu" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/internwolu.ico" />
       </Head>
     </>
   );

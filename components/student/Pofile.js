@@ -32,7 +32,6 @@ export default function StudentProfile({ user }) {
   }
 
   const manageButtonHandler = () => {
-    console.log("clicked");
     setShowEditSection(true);
   };
 

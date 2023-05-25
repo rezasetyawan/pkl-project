@@ -9,7 +9,6 @@ import { doc, setDoc } from "firebase/firestore";
 
 export const signUpStudent = async (email, password, userData) => {
   try {
-    console.log(password)
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -19,8 +18,6 @@ export const signUpStudent = async (email, password, userData) => {
     await setDoc(doc(db, "users", user.uid), {
       ...userData,
       role: "student",
-    }).then(() => {
-      console.log("welcome");
     });
     return user;
   } catch (error) {
@@ -52,21 +49,16 @@ export const signInUser = async (email, password) => {
 
 export const addCompanyAccount = async (email, password) => {
   try {
-    // Create the user without automatically signing in
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
     const user = userCredential.user;
-    
-    // Store user data in Firestore
     await setDoc(doc(db, "users", user.uid), {
       email: email,
       role: "company",
     });
-
-    // Return the user object
     return user;
   } catch (error) {
     throw new Error(`Failed to sign up: ${error.message}`);

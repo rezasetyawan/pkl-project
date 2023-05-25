@@ -46,7 +46,7 @@ export default function PublicRelationHome() {
 
   return (
     <>
-      <article className="bg-slate-50 p-5">
+      <article className="bg-white p-5">
         <h2 className="text-2xl font-[600] text-center mb-6 font-sans">
           Dashboard
         </h2>

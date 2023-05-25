@@ -17,8 +17,6 @@ export default function StudentFilterSection({
     } else {
       newFilters[title].push(category);
     }
-    console.log("current filter");
-    console.log(newFilters);
     setFilters(newFilters);
   };
 
@@ -113,28 +111,6 @@ export default function StudentFilterSection({
                   ))}
                 </div>
               ))}
-              {/* {filterTitles.map((title, index) => (
-                  <div key={index} className="p-5">
-                    <p className="font-sans first-letter:uppercase font-medium">
-                      {title}
-                    </p>
-                    {filterCategories[title].split(",").map((category) => (
-                      <button
-                        key={category}
-                        className={`m-2 py-2 px-4 bg-slate-200 font-sans rounded-lg text-base ${
-                          filters[title].includes(category)
-                            ? "ring-2 ring-offset-1"
-                            : "ring-0"
-                        } `}
-                        onClick={() => {
-                          handleFilterChange(title, category);
-                        }}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                ))} */}
             </div>
             <div class="flex items-center justify-end p-2 space-x-2 border-t border-gray-200 rounded-b gap-2 md:p-4 ">
               <button

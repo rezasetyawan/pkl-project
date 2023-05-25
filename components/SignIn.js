@@ -26,14 +26,12 @@ export default function SignInForm() {
     await signInUser(email, password)
       .then((user) => {
         resetForm();
+        setError("")
         currentUser = user;
       })
       .catch((error) => {
         setError(error.message);
-        console.error(error.message);
       });
-
-
       setIsLoading(false)
 
     if (currentUser) {

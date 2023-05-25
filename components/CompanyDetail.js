@@ -84,7 +84,7 @@ export default function CompanyDetail({ companyDetailData }) {
                 Major target
               </h4>
               <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase">
-                {company.major_target ? company.major_target.join(", ") : "-"}
+                {companyDetailData.major_target ? companyDetailData.major_target.join(", ") : "-"}
               </p>
             </div>
             <div className="flex my-3">

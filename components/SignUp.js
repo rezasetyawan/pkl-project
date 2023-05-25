@@ -27,7 +27,6 @@ export default function SignUpForm() {
   };
 
   const handleSubmit = async (event) => {
-    console.log(password)
     setIsLoading(true);
     const userData = getSignUpData(email, nis);
     event.preventDefault();
@@ -38,7 +37,6 @@ export default function SignUpForm() {
       })
       .catch((error) => {
         setError(error.message);
-        console.error(error.message);
       });
     setIsLoading(false);
   };

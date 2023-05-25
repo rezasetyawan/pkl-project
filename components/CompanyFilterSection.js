@@ -8,7 +8,6 @@ export default function CompanyFilterSection({
   setShowFilterSection,
 }) {
   const [filters, setFilters] = useState(filterKeywords);
-  console.log(filterCategories);
 
   const handleFilterChange = (title, category) => {
     const newFilters = { ...filters };
