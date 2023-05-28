@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 export default function About() {
   const router = useRouter();
   return (
-    <article className=" max-w-md full h-full mx-auto bg-white relative sm:max-w-xl sm:shadow-md">
+    <article className="w-full full h-screen mx-auto bg-white">
+      <div className="relative max-w-xl mx-auto">
       <button
         className="absolute top-3 left-3 p-3 hover:scale-110 transition-transform  min-[425px]:left-2"
         onClick={() => router.back()}
@@ -30,7 +31,7 @@ export default function About() {
           our peers and instructors.&quot;
         </p>
       </div>
-      <div>
+      <div className="mt-20">
         <h2 className="font-sans text-2xl font-semibold p-2 text-center">
           Contact Us
         </h2>
@@ -51,6 +52,7 @@ export default function About() {
             </li>
           </ul>
         </div>
+      </div>
       </div>
     </article>
   );

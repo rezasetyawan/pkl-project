@@ -67,7 +67,7 @@ export default function CompanyList() {
     <>
       <article className="bg-slate-50 pt-5">
         <h2 className="text-2xl font-[600] text-center mb-6 font-sans">
-          Dunia Industri
+          Referensi Dudi
         </h2>
         <div className="box-border px-6 md:max-w-[45%] md:flex md:flex-row-reverse md:gap-2">
           <input

@@ -13,7 +13,7 @@ export default function PublicRelationCompaniesPage() {
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
-  const [ShowLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
+  const [showLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -42,7 +42,7 @@ export default function PublicRelationCompaniesPage() {
           <CompanyList></CompanyList>
         </div>
       </div>
-      {ShowLogOutConfirmation && (
+      {showLogOutConfirmation && (
         <ConfirmationModal
           actionFunction={signOutUser}
           setShowConfirmationModal={setShowLogOutConfirmation}

@@ -3,21 +3,14 @@ import NavbarPR from "@/components/public-relation/Navbar";
 import SideBarPR from "@/components/public-relation/Sidebar";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import CompanyDetail from "@/components/CompanyDetail";
+import Loading from "@/components/Loading";
 import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { getDocumentsId } from "@/lib/firestore";
 import { useContext, useEffect, useState } from "react";
 import { UserContext, UserDataContext } from "@/context/UserContext";
 import { useRouter } from "next/router";
 import { signOutUser } from "@/auth/firebase-auth";
 
-// export async function getStaticPaths() {
-//   const paths = await getDocumentsId("companies");
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const companyDetail = await getDoc(doc(db, "companies", params.id));
@@ -37,7 +30,8 @@ export default function CompanyDetailPage({ companyDetailData }) {
   const userData = useContext(UserDataContext);
   const router = useRouter();
   const [sidebar, setSidebar] = useState(false);
-  const [ShowLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
+  const [showLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!user) {
@@ -47,6 +41,14 @@ export default function CompanyDetailPage({ companyDetailData }) {
       router.push("/auth/login");
     }
   }, [userData, router, user]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <>
@@ -64,7 +66,7 @@ export default function CompanyDetailPage({ companyDetailData }) {
       <div class={`lg:ml-64`}>
         <div class="rounded-lg mt-14">
           <CompanyDetail companyDetailData={companyDetailData}></CompanyDetail>
-          {ShowLogOutConfirmation && (
+          {showLogOutConfirmation && (
             <ConfirmationModal
               actionFunction={signOutUser}
               setShowConfirmationModal={setShowLogOutConfirmation}

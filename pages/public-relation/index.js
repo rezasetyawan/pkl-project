@@ -13,7 +13,7 @@ export default function PublicRelationHomePage() {
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
-  const [ShowLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
+  const [showLogOutConfirmation, setShowLogOutConfirmation] = useState(false);
 
   useEffect(() => {
     if (!user || !userData) {
@@ -41,9 +41,9 @@ export default function PublicRelationHomePage() {
         setShowLogOutConfirmation={setShowLogOutConfirmation}
       ></SideBarPR>
       <div class={`lg:ml-64`}>
-        <div class="rounded-lg mt-14">
+        <div class="rounded-lg mt-14 bg-white h-screen">
           <PublicRelationHome></PublicRelationHome>
-          {ShowLogOutConfirmation && (
+          {showLogOutConfirmation && (
             <ConfirmationModal
               actionFunction={signOutUser}
               setShowConfirmationModal={setShowLogOutConfirmation}

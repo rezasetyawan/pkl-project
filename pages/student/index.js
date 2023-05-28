@@ -1,14 +1,17 @@
 import Head from "next/head";
 import Navbar from "@/components/student/Navbar";
 import CompanyList from "@/components/CompanyList";
+import PositiveConfirmationModal from "@/components/PositiveConfirmationModal";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { UserContext, UserDataContext } from "@/context/UserContext";
+import { getDocumentDataById, useDocumentByID } from "@/lib/firestore";
 
 export default function StudentHomePage() {
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const [navbar, setNavbar] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,11 +20,20 @@ export default function StudentHomePage() {
     } else if (userData.role !== "student") {
       router.push("/auth/login");
     }
+    getDocumentDataById("students", user ? user.uid : null).then(
+      (userPersonalData) => {
+        console.log(userPersonalData);
+        if (!userPersonalData) {
+          setShowConfirmationModal(true);
+        }
+      }
+    );
   }, [userData, router, user]);
 
   if (!user || !userData) {
     return null;
   }
+
   return (
     <>
       <Head>
@@ -32,6 +44,13 @@ export default function StudentHomePage() {
       </Head>
       <Navbar navBar={navbar} setNavbar={setNavbar}></Navbar>
       <CompanyList onClick={() => setNavbar(false)}></CompanyList>
+      {showConfirmationModal && (
+        <PositiveConfirmationModal
+          setShowConfirmationModal={setShowConfirmationModal}
+          actionFunction={() => router.push("/auth/registration/data-form")}
+          message={"Your data still empty, do you want to fill it first?"}
+        ></PositiveConfirmationModal>
+      )}
     </>
   );
 }

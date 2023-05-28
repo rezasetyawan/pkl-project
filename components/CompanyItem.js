@@ -32,13 +32,12 @@ export default function CompanyItem({ isLoading, error, filteredCompanies }) {
               viewBox="0 0 80 80"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="min-[425px]:min-w-[80px] min-[425px]:max-w-[80px] aspect-square drop-shadow-md"
+              className="min-[425px]:min-w-[80px] min-[425px]:max-w-[80px] aspect-square drop-shadow-md fill-[#475569]/70"
             >
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M30 3.33334C26.3181 3.33334 23.3334 6.3181 23.3334 10V40H16.6667C12.9848 40 10 42.9848 10 46.6667V66.6667L3.33337 66.6667V73.3333L16.6667 73.3333H23.3334H30H63.3334L76.6667 73.3333V66.6667L70 66.6667V10C70 6.3181 67.0153 3.33334 63.3334 3.33334H30ZM16.6667 53.3333H23.3334V60H16.6667V53.3333ZM43.3334 16.6667H36.6667V23.3333H43.3334V16.6667ZM56.6667 16.6667H50V23.3333H56.6667V16.6667ZM36.6667 28.3333H43.3334V35H36.6667V28.3333ZM56.6667 28.3333H50V35H56.6667V28.3333ZM50 40H56.6667V46.6667H50V40ZM56.6667 51.6667H50V58.3333H56.6667V51.6667Z"
-                fill="#475569"
               />
             </svg>
           </div>

@@ -24,7 +24,7 @@ export default function Home() {
           router.push("/company/"); 
           break;
         default:
-          router.push("/");
+          router.push("/auth/login");
       }
     }
   }, [userData, router, user]);

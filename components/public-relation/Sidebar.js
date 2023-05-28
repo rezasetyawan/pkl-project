@@ -30,7 +30,7 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
           </li>
           <li className="group">
             <Link
-              href="/public-relation/companies"
+              href="/public-relation/company-reference"
               className="flex items-center p-2 text-sky-900 font-semibold rounded-lg hover:bg-gray-100"
             >
               <svg
@@ -46,7 +46,9 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
                 />
               </svg>
 
-              <span className="flex-1 ml-3 whitespace-nowrap">Daftar Dudi</span>
+              <span className="flex-1 ml-3 whitespace-nowrap">
+                Daftar Referensi Dudi
+              </span>
             </Link>
           </li>
           <li className="group">
@@ -69,6 +71,22 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
               <span className="flex-1 ml-3 whitespace-nowrap">
                 Daftar Murid
               </span>
+            </Link>
+          </li>
+          <li className="group">
+            <Link
+              href="/public-relation/dudi"
+              className="flex items-center p-2 text-sky-900 font-semibold rounded-lg hover:bg-gray-100"
+            >
+              <svg
+                className="flex-shrink-0 w-6 h-6 fill-primary-color transition duration-75 font-semibold group-hover:scale-105"
+                fill="currentColor"
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M224 256A128 128 0 1 1 224 0a128 128 0 1 1 0 256zM209.1 359.2l-18.6-31c-6.4-10.7 1.3-24.2 13.7-24.2H224h19.7c12.4 0 20.1 13.6 13.7 24.2l-18.6 31 33.4 123.9 36-146.9c2-8.1 9.8-13.4 17.9-11.3c70.1 17.6 121.9 81 121.9 156.4c0 17-13.8 30.7-30.7 30.7H285.5c-2.1 0-4-.4-5.8-1.1l.3 1.1H168l.3-1.1c-1.8 .7-3.8 1.1-5.8 1.1H30.7C13.8 512 0 498.2 0 481.3c0-75.5 51.9-138.9 121.9-156.4c8.1-2 15.9 3.3 17.9 11.3l36 146.9 33.4-123.9z" />
+              </svg>
+              <span className="flex-1 ml-3 whitespace-nowrap">Daftar Dudi</span>
             </Link>
           </li>
           <li className="group">
