@@ -6,7 +6,7 @@ export default function Navbar({ navBar, setNavbar }) {
       <header className="grid grid-cols-3 gap-2.5 items-center sticky top-0  shadow z-[99] bg-[#ffffff] px-5 py-2 md:px-10 md:py-3">
         <div className="">
           <Link href="/student/">
-            <h1 className="font-sans text-primary-color font-extrabold text-base min-[425px]:text-xl md:text-2xl drop-shadow-md shadow-blue-600/50">
+            <h1 className="font-sans text-primary-color font-bold text-base min-[425px]:text-xl md:text-2xl drop-shadow-md shadow-blue-600/50">
               Intern Wolu
             </h1>
           </Link>

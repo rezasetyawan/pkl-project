@@ -46,21 +46,3 @@ export const signInUser = async (email, password) => {
     throw new Error(`Failed to sign in: ${error.message}`);
   }
 };
-
-export const addCompanyAccount = async (email, password) => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    await setDoc(doc(db, "users", user.uid), {
-      email: email,
-      role: "company",
-    });
-    return user;
-  } catch (error) {
-    throw new Error(`Failed to sign up: ${error.message}`);
-  }
-};

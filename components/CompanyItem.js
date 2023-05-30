@@ -17,7 +17,7 @@ export default function CompanyItem({ isLoading, error, filteredCompanies }) {
     <div className="grid grid-cols-1 gap-2 mt-7 md:gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {filteredCompanies.map((company) => (
         <div
-          className="bg-white p-3 flex gap-3 rounded-md shadow-md hover:cursor-pointer hover:ring-2 hover:ring-[#0066ff] hover:ring-offset-1 hover:ring-offset-slate-200 hover:scale-[1.02] hover:transition-transform"
+          className="bg-white py-2 px-1 flex gap-3 rounded-md shadow-md hover:cursor-pointer hover:ring-2 hover:ring-[#0066ff] hover:ring-offset-1 hover:ring-offset-slate-200 hover:scale-[1.02] hover:transition-transform"
           key={company.id}
           onClick={() =>
             userData.role === "student"
@@ -25,14 +25,14 @@ export default function CompanyItem({ isLoading, error, filteredCompanies }) {
               : router.push(`/public-relation/company/${company.id}`)
           }
         >
-          <div className="flex items-center overflow-hidden min-w-[25%] max-w-[25%]">
+          <div className="flex items-center justify-center overflow-hidden min-w-[25%] max-w-[25]">
             <svg
-              width="80"
-              height="80"
+              width="70"
+              height="70"
               viewBox="0 0 80 80"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="min-[425px]:min-w-[80px] min-[425px]:max-w-[80px] aspect-square drop-shadow-md fill-[#475569]/70"
+              className="min-[425px]:min-w-[70px] min-[425px]:max-w-[70px] aspect-square drop-shadow-md fill-[#475569]/70"
             >
               <path
                 fill-rule="evenodd"

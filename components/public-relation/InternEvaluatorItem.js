@@ -1,11 +1,11 @@
 import Loading from "../Loading";
 import Error from "../Error";
 import DeleteButtonIcon from "../../public/icon/delete-button-icon.svg";
-import { useState } from "react";
+import SuccessModal from "../SuccessModal";
 import ConfirmationModal from "../ConfirmationModal";
+import { useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import SuccessModal from "../SuccessModal";
 
 export default function InternEvaluatorItem({
   isLoading,
@@ -34,7 +34,7 @@ export default function InternEvaluatorItem({
   return (
     <>
       <div className="">
-        <div className="grid grid-cols-3 my-5 px-3">
+        <div className="grid grid-cols-3 my-5 px-3 font-semibold">
           <p>Nama Dudi</p>
           <p>Peserta PKL</p>
           <p>Token</p>
@@ -49,7 +49,7 @@ export default function InternEvaluatorItem({
                 {internEvaluator.name || "-"}
               </h3>
               <div className="flex my-1">
-                <p className="font-sans text-[#3e3c3c] text-left font-semibold text-xs sm:text-sm">
+                <p className="font-sans text-[#3e3c3c] max-w-[90%] text-left font-semibold text-xs sm:text-sm">
                   {internEvaluator
                     ? internEvaluator.pklParticipant.join(", ")
                     : "-"}
@@ -62,7 +62,7 @@ export default function InternEvaluatorItem({
               </div>
             </div>
             <button
-              className="absolute right-1 top-3 rounded-sm bg-primary-color px-2 py-1"
+              className="absolute right-3 top-3 rounded-sm bg-primary-color px-2 py-1"
               onClick={() => {
                 setInternEvaluatorId(internEvaluator.id);
                 setShowDeleteConfirmation(true);
@@ -77,7 +77,7 @@ export default function InternEvaluatorItem({
         <ConfirmationModal
           actionFunction={()=>deleteInternEvaluator(internEvaluatorId)}
           setShowConfirmationModal={setShowDeleteConfirmation}
-          message={`Apakah anda yakin ingin menghapus data ${internEvaluatorId}? `}
+          message={`Apakah anda yakin ingin menghapus data ini? `}
         ></ConfirmationModal>
       )}
        {showSuccessModal && (

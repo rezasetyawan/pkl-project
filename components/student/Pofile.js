@@ -120,6 +120,13 @@ export default function StudentProfile({ user }) {
                 </p>
               </div>
             </div>
+
+            <div className="my-3">
+              <h5 className="font-sans font-medium">Nilai PKL</h5>
+              <p className="border-black/40 border-b-[1px] font-sans">
+                {studentData.pklMark || "-"}
+              </p>
+            </div>
           </div>
         </section>
         <div className="mx-10 my-6 py-4 text-sm">

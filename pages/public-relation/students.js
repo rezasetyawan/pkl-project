@@ -10,10 +10,10 @@ import { signOutUser } from "@/auth/firebase-auth";
 
 export default function PublicRelationStudentsPage() {
   const [sidebar, setSidebar] = useState(false);
+  const [showLogOutConfirmation,setShowLogOutConfirmation] = useState(false)
   const user = useContext(UserContext);
   const userData = useContext(UserDataContext);
   const router = useRouter();
-  const [showLogOutConfirmation,setShowLogOutConfirmation] = useState(false)
 
   useEffect(() => {
     if (!user) {

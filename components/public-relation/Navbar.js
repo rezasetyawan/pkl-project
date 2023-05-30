@@ -33,7 +33,7 @@ export default function NavbarPR({ sidebar, setSidebar }) {
                   </svg>
                 </button>
                 <Link href="/public-relation/" class="flex ml-2 md:mr-24">
-                  <h1 className="font-sans text-primary-color font-extrabold text-base min-[425px]:text-xl md:text-2xl drop-shadow-md shadow-blue-600/50">
+                  <h1 className="font-sans text-primary-color font-bold text-base min-[425px]:text-xl md:text-2xl drop-shadow-md shadow-blue-600/50">
                     Intern Wolu
                   </h1>
                 </Link>

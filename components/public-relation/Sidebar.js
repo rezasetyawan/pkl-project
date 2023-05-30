@@ -47,7 +47,7 @@ export default function SideBarPR({ sidebar, setShowLogOutConfirmation }) {
               </svg>
 
               <span className="flex-1 ml-3 whitespace-nowrap">
-                Daftar Referensi Dudi
+                Referensi Dudi
               </span>
             </Link>
           </li>

@@ -40,9 +40,12 @@ export default function StudentDetail({ studentDetailData }) {
             Student Detail
           </h2>
           <section className="mt-10">
-            <h3 className="font-poppins text-lg font-bold text-[#404040] tracking-wide border-b border-[#c0c0c0] w-max mb-6 text-left max-w-full">
-              {studentDetailData.name || "-"}
-            </h3>
+            <div className="flex">
+              <h3 className="font-poppins text-lg font-bold text-[#404040] tracking-wide border-b border-[#c0c0c0] w-max mb-6 text-left max-w-full">
+                {studentDetailData.name || "-"}
+              </h3>
+              <p className="ml-2 font-medium text-lg text-[#404040]">{studentDetailData.pklMark}</p>
+            </div>
             <div className="flex my-3">
               <h4 className="font-sans text-[#3e3c3c] text-left font-semibold text-sm min-w-[140px]">
                 Class

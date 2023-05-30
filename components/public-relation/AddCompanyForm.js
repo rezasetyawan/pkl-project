@@ -39,7 +39,7 @@ export default function AddCompanyForm({
   };
 
   const handleRemoveParticipant = () => {
-    setPklParticipantCount(pklParticipantCount - 1);
+    setPklParticipantCount(pklParticipantCount === 1 ? 1 : pklParticipantCount-1);
     setCompanyPklParticipant((prevParticipants) => {
       const updatedParticipants = [...prevParticipants];
       updatedParticipants.splice(pklParticipantCount - 1, 1);

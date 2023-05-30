@@ -231,11 +231,11 @@ export default function CompanyDataForm({
                     <label className="flex justify-center gap-1">
                       <input
                         type="checkbox"
-                        value="CG"
+                        value="LK"
                         onChange={handleCheckboxChange}
-                        checked={companyMajorTarget.includes("CG")}
+                        checked={companyMajorTarget.includes("LK")}
                       />
-                      CG
+                      LK
                     </label>
                     <label className="flex justify-center gap-1">
                       <input
