@@ -9,7 +9,7 @@ export default function StudentList() {
   const [query, setQuery] = useState("");
   const [studentList, setStudentList] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
-  const [isLoadingDetail, setIsLoadingDetail] = useState(true);
+  const [isLoadingDetail, setIsLoadingDetail] = useState(false);
   const filterKeywords = {
     class: [],
     major: [],
