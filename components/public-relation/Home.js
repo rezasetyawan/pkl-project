@@ -86,7 +86,7 @@ export default function PublicRelationHome() {
             </div>
             <div
               className="flex p-2 shadow-md rounded-md items-center hover:scale-[1.02] hover:transition-transform hover:cursor-pointer"
-              onClick={() => router.push("/public-relation/companies")}
+              onClick={() => router.push("/public-relation/company-reference")}
             >
               <div className="w-[50%]">
                 <h4 className="font-medium">Total Referensi Dudi</h4>

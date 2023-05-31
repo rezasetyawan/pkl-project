@@ -1,3 +1,6 @@
+import Loading from "../Loading";
+import SuccessModal from "../SuccessModal";
+import ErrorAlert from "../ErrorAlert";
 import { db } from "@/lib/firebase";
 import {
   collection,
@@ -9,8 +12,6 @@ import {
   where,
 } from "firebase/firestore";
 import { useState } from "react";
-import Loading from "../Loading";
-import SuccessModal from "../SuccessModal";
 
 export default function InputPklMarkForm() {
   const [inputFieldCounter, setInputFieldCounter] = useState(1);
@@ -18,6 +19,8 @@ export default function InputPklMarkForm() {
   const [pklMarks, setPklMarks] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const renderElements = () => {
     const elements = [];
@@ -37,6 +40,8 @@ export default function InputPklMarkForm() {
               onChange={(event) =>
                 handleNisInputValueChange(event.target.value, i)
               }
+              required={true}
+              maxLength={10}
             ></input>
           </div>
 
@@ -50,6 +55,8 @@ export default function InputPklMarkForm() {
               onChange={(event) =>
                 handleMarkInputValueChange(event.target.value, i)
               }
+              required={true}
+              maxLength={3}
             ></input>
           </div>
         </div>
@@ -77,10 +84,10 @@ export default function InputPklMarkForm() {
     try {
       const document = await getDoc(doc(db, "intern_evaluator", token));
       let returnValue = true;
-
       pklMarks.forEach((mark) => {
         if (!document.data().pklParticipant.includes(mark.nis)) {
-          alert("ngapain luwh");
+          setErrorMessage(`Maaf, anda tidak bisa mengakses NIS ${mark.nis}`);
+          setShowErrorAlert(true);
           returnValue = false;
           return;
         }
@@ -88,7 +95,8 @@ export default function InputPklMarkForm() {
 
       return returnValue;
     } catch (error) {
-      alert("tokennya salah bang");
+      setErrorMessage(`Maaf, token anda salah`);
+      setShowErrorAlert(true);
       return false;
     }
   };
@@ -98,7 +106,9 @@ export default function InputPklMarkForm() {
     event.preventDefault();
 
     if (!token) {
-      return alert("masukan token terlebih dahulu");
+      setErrorMessage(`Masukan token terlebih dahulu`);
+      setShowErrorAlert(true);
+      return;
     }
 
     const isTokenValid = await checkTokenValidation();
@@ -113,18 +123,26 @@ export default function InputPklMarkForm() {
 
         getDocs(querySnapshot)
           .then((docSnapshot) => {
-            docSnapshot.forEach(async (document) => {
-              await setDoc(
-                doc(db, "students", document.id),
-                { pklMark: mark.pklMark },
-                { merge: true }
-              );
+            if (docSnapshot.empty) {
               setIsLoading(false);
-              setShowSuccessModal(true);
-            });
+              setErrorMessage(`NIS ${mark.nis} tidak ditemukan`);
+              setShowErrorAlert(true);
+            } else {
+              docSnapshot.forEach(async (document) => {
+                await setDoc(
+                  doc(db, "students", document.id),
+                  { pklMark: mark.pklMark },
+                  { merge: true }
+                );
+                setIsLoading(false);
+                setShowSuccessModal(true);
+              });
+            }
           })
           .catch((error) => {
-            return alert("Error getting documents:", error);
+            setErrorMessage(`Error getting documents:, ${error} `);
+            setShowErrorAlert(true);
+            return;
           });
       });
   };
@@ -193,6 +211,13 @@ export default function InputPklMarkForm() {
           setShowSuccessModal={setShowSuccessModal}
           message={"Nilai berhasil di input"}
         ></SuccessModal>
+      )}
+      {showErrorAlert && (
+        <ErrorAlert
+          errorMessage={errorMessage}
+          showErrorAlert={showErrorAlert}
+          setShowErrorAlert={setShowErrorAlert}
+        ></ErrorAlert>
       )}
     </>
   );
