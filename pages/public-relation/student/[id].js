@@ -42,8 +42,10 @@ export default function StudentDetailPage({ studentDetailData }) {
   }, [userData, router, user]);
 
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    if (studentDetailData) {
+      setIsLoading(false);
+    }
+  }, [studentDetailData]);
 
   if (isLoading) {
     return <Loading></Loading>;

@@ -11,7 +11,6 @@ import { UserContext, UserDataContext } from "@/context/UserContext";
 import { useRouter } from "next/router";
 import { signOutUser } from "@/auth/firebase-auth";
 
-
 export async function getServerSideProps({ params }) {
   const companyDetail = await getDoc(doc(db, "companies", params.id));
   const companyDetailData = {
@@ -43,8 +42,10 @@ export default function CompanyDetailPage({ companyDetailData }) {
   }, [userData, router, user]);
 
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    if (companyDetailData) {
+      setIsLoading(false);
+    }
+  }, [companyDetailData]);
 
   if (isLoading) {
     return <Loading></Loading>;

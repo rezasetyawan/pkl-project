@@ -36,8 +36,10 @@ export default function CompanyDetailPage({ companyDetailData }) {
   }, [userData, router, user]);
 
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    if (companyDetailData) {
+      setIsLoading(false);
+    }
+  }, [companyDetailData]);
 
   if (isLoading) {
     return <Loading></Loading>;
