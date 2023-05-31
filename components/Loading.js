@@ -3,7 +3,7 @@ export default function Loading() {
     <div className="text-center">
       <div
         role="status"
-        className="absolute top-[50%] left-[50%] -translate-x-2/4 -translate-y-2/4"
+        className="fixed top-[50%] left-[50%] -translate-x-2/4 -translate-y-2/4"
       >
         <svg
           aria-hidden="true"
