@@ -6,6 +6,7 @@ import SuccessModal from "./SuccessModal";
 import { useState, useMemo, useContext } from "react";
 import { useDocumentCollections } from "@/lib/firestore";
 import { UserDataContext } from "@/context/UserContext";
+import Loading from "./Loading";
 
 export default function CompanyList() {
   const userData = useContext(UserDataContext);
@@ -15,7 +16,7 @@ export default function CompanyList() {
   const [filteredCompanies, setFilteredCompanies] = useState([]);
   const [showCompanyDataForm, setShowCompanyDataForm] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [isLoadingDetail,setIsLoadingDetail] = useState(false)
+  const [isLoadingDetail, setIsLoadingDetail] = useState(false);
 
   const filterKeywords = {
     city: [],
@@ -142,6 +143,7 @@ export default function CompanyList() {
           message={"Data berhasil ditambahkan"}
         ></SuccessModal>
       )}
+      {isLoadingDetail && <Loading></Loading>}
     </>
   );
 }
