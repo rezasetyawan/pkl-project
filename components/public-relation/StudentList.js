@@ -2,12 +2,14 @@ import StudentFilterSection from "./StudentFilterSection";
 import StudentItem from "./StudentItem";
 import { useState, useMemo } from "react";
 import { useDocumentCollections } from "@/lib/firestore";
+import Loading from "../Loading";
 
 export default function StudentList() {
   const [showFilterSection, setShowFilterSection] = useState(false);
   const [query, setQuery] = useState("");
   const [studentList, setStudentList] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
+  const [isLoadingDetail, setIsLoadingDetail] = useState(true);
   const filterKeywords = {
     class: [],
     major: [],
@@ -95,6 +97,7 @@ export default function StudentList() {
             isLoading={isLoading}
             error={error}
             filteredStudents={searchedStudents}
+            setIsLoadingDetail={setIsLoadingDetail}
           ></StudentItem>
           {showFilterSection && (
             <StudentFilterSection
@@ -107,6 +110,7 @@ export default function StudentList() {
           )}
         </div>
       </article>
+      {isLoadingDetail && <Loading></Loading>}
     </>
   );
 }

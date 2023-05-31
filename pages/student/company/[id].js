@@ -13,6 +13,7 @@ export async function getServerSideProps({ params }) {
     id: companyDetail.id,
     ...companyDetail.data(),
   };
+  
   return {
     props: {
       companyDetailData,

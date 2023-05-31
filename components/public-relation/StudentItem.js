@@ -2,9 +2,21 @@ import Loading from "../Loading";
 import Error from "../Error";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-export default function StudentItem({ isLoading, error, filteredStudents }) {
+export default function StudentItem({
+  isLoading,
+  error,
+  filteredStudents,
+  setIsLoadingDetail,
+}) {
   const router = useRouter();
+  
+  useEffect(() => {
+    if (error) {
+      setIsLoadingDetail(false);
+    }
+  }, [error, setIsLoadingDetail]);
 
   if (isLoading) return <Loading />;
   if (error) return <Error errorMessage={error} />;
@@ -18,9 +30,12 @@ export default function StudentItem({ isLoading, error, filteredStudents }) {
           <div
             className="bg-white py-2 px-1 flex relative gap-3 rounded-md shadow-md hover:cursor-pointer hover:ring-2 hover:ring-[#0066ff] hover:ring-offset-1 hover:ring-offset-slate-200 hover:scale-[1.02] hover:transition-transform"
             key={student.id}
-            onClick={() =>
-              router.push(`/public-relation/student/${student.id}`)
-            }
+            onClick={() => {
+              setIsLoadingDetail(true);
+              router.push(`/public-relation/student/${student.id}`).then(() => {
+                setIsLoadingDetail(false);
+              });
+            }}
           >
             <p className="absolute top-1 right-1 font-medium bg-[#E9E9E9] px-1 rounded-md text-sm sm:text-base">
               {student.pklMark || ""}

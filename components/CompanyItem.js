@@ -2,12 +2,24 @@ import Loading from "./Loading";
 import Error from "./Error";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserDataContext } from "@/context/UserContext";
 
-export default function CompanyItem({ isLoading, error, filteredCompanies }) {
+export default function CompanyItem({
+  isLoading,
+  error,
+  filteredCompanies,
+  setIsLoadingDetail,
+}) {
   const router = useRouter();
   const userData = useContext(UserDataContext);
+
+  useEffect(() => {
+    if (error) {
+      setIsLoadingDetail(false);
+    }
+  }, [error, setIsLoadingDetail]);
+
   if (isLoading) return <Loading />;
   if (error) return <Error errorMessage={error} />;
   if (filteredCompanies.length < 1)
@@ -19,11 +31,16 @@ export default function CompanyItem({ isLoading, error, filteredCompanies }) {
         <div
           className="bg-white py-2 px-1 flex gap-3 rounded-md shadow-md hover:cursor-pointer hover:ring-2 hover:ring-[#0066ff] hover:ring-offset-1 hover:ring-offset-slate-200 hover:scale-[1.02] hover:transition-transform"
           key={company.id}
-          onClick={() =>
+          onClick={() => {
+            setIsLoadingDetail(true);
             userData.role === "student"
-              ? router.push(`/student/company/${company.id}`)
-              : router.push(`/public-relation/company/${company.id}`)
-          }
+              ? router
+                  .push(`/student/company/${company.id}`)
+                  .then(() => setIsLoadingDetail(false))
+              : router
+                  .push(`/public-relation/company/${company.id}`)
+                  .then(() => setIsLoadingDetail(false));
+          }}
         >
           <div className="flex items-center justify-center overflow-hidden min-w-[25%] max-w-[25]">
             <svg
@@ -74,7 +91,7 @@ export default function CompanyItem({ isLoading, error, filteredCompanies }) {
                 Major
               </p>
               <p className="font-sans text-black/60 text-xs font-semibold text-left max-w-[80%] uppercase leading-5">
-                : {company.major_target ? company.major_target.join(", ") : "-"} 
+                : {company.major_target ? company.major_target.join(", ") : "-"}
               </p>
             </div>
             <div className="flex my-1">

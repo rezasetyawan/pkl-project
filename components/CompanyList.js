@@ -15,6 +15,7 @@ export default function CompanyList() {
   const [filteredCompanies, setFilteredCompanies] = useState([]);
   const [showCompanyDataForm, setShowCompanyDataForm] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isLoadingDetail,setIsLoadingDetail] = useState(false)
 
   const filterKeywords = {
     city: [],
@@ -106,6 +107,7 @@ export default function CompanyList() {
             isLoading={isLoading}
             error={error}
             filteredCompanies={searchedCompanies}
+            setIsLoadingDetail={setIsLoadingDetail}
           ></CompanyItem>
           {showFilterSection && (
             <CompanyFilterSection
