@@ -7,13 +7,12 @@ const nextConfig = {
     );
 
     config.module.rules.push(
-      
       {
         ...fileLoaderRule,
         test: /\.svg$/i,
         resourceQuery: /url/, // *.svg?url
       },
-      
+
       {
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
@@ -22,10 +21,13 @@ const nextConfig = {
       }
     );
 
-    
     fileLoaderRule.exclude = /\.svg$/i;
 
     return config;
+  },
+
+  images: {
+    domains: ['www.thesprucepets.com'],
   },
 };
 
