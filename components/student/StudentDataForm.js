@@ -64,9 +64,9 @@ export default function StudentDataForm({
   ) => {
     return {
       name: name,
-      class: studentClassArrayData[0].toUpperCase(),
-      major: studentClassArrayData[1].toUpperCase(),
-      classNumber: studentClassArrayData[2],
+      class: studentClassArrayData[0] ? studentClassArrayData[0].toUpperCase() : 'XI',
+      major: studentClassArrayData[1] ? studentClassArrayData[1].toUpperCase() : 'PPLG',
+      classNumber: studentClassArrayData[2] ? studentClassArrayData[2] : '3' ,
       nis: nis,
       pklPlace: pklPlace,
       pklAddress: pklAddress,
